@@ -1,6 +1,6 @@
 # Quiz Application in Rails
 
-This is a basic Rails-based quiz application that allows users to create quizzes and add questions to them. It provides a simple interface to manage quizzes and questions.
+This is a basic Rails-based quiz application that allows users to create quizzes and add questions to them. It provides a simple interface to manage quizzes and questions. I developed this as part of my journey of learning Rails as a student placement dev at the GDS.
 
 ## Features
 
