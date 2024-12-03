@@ -1,0 +1,22 @@
+EnableDefaultLinters: true
+linters:
+  ErbSafety:
+    enabled: true
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+
+  EmptyLines:
+    enabled: true
+    max: 1
+
+  TrailingWhitespace:
+    enabled: true
+
+  FinalNewline:
+    enabled: true
+
+  SpaceInHtmlTag:
+    enabled: true

@@ -1,9 +1,8 @@
-
 <h1>All Quizzes</h1>
-<%= link_to 'Create New Quiz', new_quiz_path %>
-<ul>
-    <% @quizzes.each do |quiz| %>
-        <li><%= link_to quiz.title, quiz_path(quiz) %></li>
-    <% end %>
-</ul>
+<%= link_to "Create New Quiz", new_quiz_path %>
 
+<ul>
+  <% @quizzes.each do |quiz| %>
+    <li><%= link_to quiz.title, quiz_path(quiz) %></li>
+  <% end %>
+</ul>

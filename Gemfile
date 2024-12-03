@@ -55,3 +55,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+group :development, :test do
+  gem "rspec"
+  gem "rspec-rails", "~> 6.0"
+end
+
+gem 'erb_lint', require: false
+
