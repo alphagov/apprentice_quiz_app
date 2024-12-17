@@ -61,5 +61,4 @@ group :development, :test do
   gem "rspec-rails", "~> 6.0"
 end
 
-gem 'erb_lint', require: false
-
+gem "erb_lint", require: false
