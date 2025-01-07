@@ -21,33 +21,22 @@ RSpec.describe "Quizzes", type: :request do
 
   describe "GET show" do
     before do
-        Quiz.create(title: "First Quiz", description: "This is the first quiz")
-        Quiz.create(title: "Second Quiz", description: "This is the second quiz")
-        Quiz.create(title: "Third Quiz", description: "This is the third quiz")
-        Quiz.create(title: "Fourth Quiz", description: "This is the fourth quiz")
-      end
+        @quiz = Quiz.create(title: "First Quiz", description: "This is the first quiz")
+    end
 
     it "gets the first quiz" do
-      get "/quizzes/1"
+      get quiz_path(@quiz.id)
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include("First Quiz")
       expect(response.body).to include("This is the first quiz")
-    end
-
-    it "gets the second quiz" do
-      get "/quizzes/2"
-
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include("Second Quiz")
-      expect(response.body).to include("This is the second quiz")
     end
   end
 
   describe "POST create" do
     it "sends a quiz request to create a quiz" do
         expect {
-          post "/quizzes", params: { quiz: { title: "First Quiz", description: "This is the first quiz" } }
+          post quizzes_path, params: { quiz: { title: "First Quiz", description: "This is the first quiz" } }
         }.to change(Quiz, :count).by(1)
 
         new_quiz = Quiz.last
@@ -67,7 +56,7 @@ RSpec.describe "Quizzes", type: :request do
       end
 
     it "sends a PATCH request to update a quiz" do
-      patch "/quizzes/#{@quiz.id}", params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
+        patch quiz_path(@quiz.id), params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
 
       expect(response).to redirect_to(quiz_path(@quiz))
       follow_redirect!
