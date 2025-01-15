@@ -21,7 +21,7 @@ RSpec.describe "Quizzes", type: :request do
 
   describe "GET show" do
     before do
-        @quiz = Quiz.create(title: "First Quiz", description: "This is the first quiz")
+      @quiz = Quiz.create(title: "First Quiz", description: "This is the first quiz")
     end
 
     it "gets the first quiz" do
@@ -56,7 +56,7 @@ RSpec.describe "Quizzes", type: :request do
       end
 
     it "sends a PATCH request to update a quiz" do
-        patch quiz_path(@quiz.id), params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
+      patch quiz_path(@quiz.id), params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
 
       expect(response).to redirect_to(quiz_path(@quiz))
       follow_redirect!
