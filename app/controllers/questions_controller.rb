@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_quiz
+  before_action :find_quiz
 
   def new
     @question = @quiz.questions.build
@@ -14,13 +14,13 @@ class QuestionsController < ApplicationController
     end
   end
 
-    private
+  private
 
-      def find_quiz
-        @quiz = Quiz.find(params[:quiz_id])
-      end
+  def find_quiz
+    @quiz = Quiz.find(params[:quiz_id])
+  end
 
-      def question_params
-        params.require(:question).permit(:content, :correct_answer)
-      end
+  def question_params
+    params.require(:question).permit(:content, :correct_answer)
+  end
 end
