@@ -5,11 +5,11 @@ gem "rails", "~> 8.0.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", '~> 2.5.0'
+gem "sqlite3", "~> 2.5.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 6.5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails", '~> 2.1.0'
+gem "importmap-rails", "~> 2.1.0"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -39,7 +39,7 @@ group :development, :test do
   gem "debug", "~> 1.10.0", platforms: %i[mri windows], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem 'brakeman', '~> 7.0'
+  gem "brakeman", "~> 7.0"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -55,7 +55,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver", '~> 4.27.0'
+  gem "selenium-webdriver", "~> 4.27.0"
 end
 
 gem "erb_lint", require: false
