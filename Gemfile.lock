@@ -77,13 +77,6 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     benchmark (0.4.0)
-    better_html (2.1.1)
-      actionview (>= 6.0)
-      activesupport (>= 6.0)
-      ast (~> 2.0)
-      erubi (~> 1.4)
-      parser (>= 2.4)
-      smart_properties
     bigdecimal (3.1.9)
     bindex (0.8.1)
     bootsnap (1.18.4)
@@ -109,13 +102,6 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
     drb (2.2.1)
-    erb_lint (0.8.0)
-      activesupport
-      better_html (>= 2.0.1)
-      parser (>= 2.7.1.4)
-      rainbow
-      rubocop (>= 1)
-      smart_properties
     erubi (1.13.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -272,7 +258,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -317,19 +302,18 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  brakeman (~> 7.0)
+  brakeman
   capybara
-  debug (~> 1.10.0)
-  erb_lint
-  importmap-rails (~> 2.1.0)
+  debug
+  importmap-rails
   jbuilder
-  puma (>= 6.5.0)
-  rails (~> 8.0.1)
-  rspec-rails (~> 6.0)
+  puma
+  rails
+  rspec-rails
   rubocop-rails-omakase
-  selenium-webdriver (~> 4.27.0)
+  selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 2.5.0)
+  sqlite3
   stimulus-rails
   turbo-rails
   tzinfo-data
