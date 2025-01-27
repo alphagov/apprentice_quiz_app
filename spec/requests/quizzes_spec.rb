@@ -20,12 +20,10 @@ RSpec.describe "Quizzes", type: :request do
   end
 
   describe "GET show" do
-    before do
-      @quiz = Quiz.create!(title: "First Quiz", description: "This is the first quiz")
-    end
+    let(:quiz) { Quiz.create!(title: "First Quiz", description: "This is the first quiz") }
 
     it "gets the first quiz" do
-      get quiz_path(@quiz.id)
+      get quiz_path(quiz.id)
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include("First Quiz")
@@ -51,14 +49,12 @@ RSpec.describe "Quizzes", type: :request do
   end
 
   describe "PATCH update" do
-    before do
-      @quiz = Quiz.create!(title: "First Quiz", description: "This is the first quiz")
-    end
+    let(:quiz) { Quiz.create!(title: "First Quiz", description: "This is the first quiz") }
 
     it "sends a PATCH request to update a quiz" do
-      patch quiz_path(@quiz.id), params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
+      patch quiz_path(quiz.id), params: { quiz: { title: "First Quiz", description: "I have updated the quiz" } }
 
-      expect(response).to redirect_to(quiz_path(@quiz))
+      expect(response).to redirect_to(quiz_path(quiz))
       follow_redirect!
 
       expect(response).to have_http_status(:success)
