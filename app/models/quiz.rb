@@ -1,3 +1,5 @@
 class Quiz < ApplicationRecord
-    has_many :questions, dependent: :destroy
-  end
+  has_many :questions, dependent: :destroy
+  validates :title, presence: true
+  validates :description, presence: true
+end

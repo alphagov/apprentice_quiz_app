@@ -1,0 +1,15 @@
+<h1>Create a New Quiz</h1>
+
+<%= form_with model: @quiz do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.submit "Create Quiz" %>
+  </div>
+<% end %>
