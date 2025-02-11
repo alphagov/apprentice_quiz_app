@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "govuk_publishing_components"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "8.0.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -44,8 +45,6 @@ group :development, :test do
   gem "rubocop-govuk", require: false
 
   gem "rspec-rails"
-
-  gem "govuk_publishing_components"
 end
 
 group :development do
@@ -59,3 +58,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "dartsass-rails", "~> 0.5.1"
