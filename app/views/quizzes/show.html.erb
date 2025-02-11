@@ -10,4 +10,6 @@
   <% end %>
 </ul>
 
-<%= link_to "Add Question", new_quiz_question_path(@quiz) %>
+<%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+
+<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
