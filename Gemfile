@@ -44,11 +44,13 @@ group :development, :test do
   gem "rubocop-govuk", require: false
 
   gem "rspec-rails"
+  
+  gem "govuk_publishing_components"
+
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "govuk_publishing_components"
   gem "sassc-rails"
   gem "web-console"
 end
