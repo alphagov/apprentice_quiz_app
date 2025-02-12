@@ -1,5 +1,6 @@
 <h1>All Quizzes</h1>
-<%= link_to "Create New Quiz", new_quiz_path %>
+<%= render "govuk_publishing_components/components/button", text: "Create New Quiz", href: new_quiz_path %>
+
 
 <ul>
   <% @quizzes.each do |quiz| %>
