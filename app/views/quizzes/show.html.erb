@@ -24,6 +24,10 @@
       </ul>
 
       <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+      
+      <div class="govuk-button-group">
+        <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
+      </div>
     </main>
   </div>
   
