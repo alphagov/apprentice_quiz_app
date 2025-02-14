@@ -7,3 +7,11 @@
     <li><%= link_to quiz.title, quiz_path(quiz) %></li>
   <% end %>
 </ul>
+
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: "production",
+  product_name: "Publishing",
+  browser_title: "A page title"
+} do %>
+  <!-- You probably want to use the header, main & footer components here -->
+<% end %>
