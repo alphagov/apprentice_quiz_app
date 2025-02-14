@@ -8,14 +8,17 @@
     environment: "production"
   } %>
 
-  <h1>All Quizzes</h1>
+<h1 class="govuk-heading-xl">All Quizzes</h1>
 <%= render "govuk_publishing_components/components/button", text: "Create New Quiz", href: new_quiz_path %>
 
-<ul>
+<ul class="govuk-list">
   <% @quizzes.each do |quiz| %>
-    <li><%= link_to quiz.title, quiz_path(quiz) %></li>
+    <li class="govuk-body">
+      <%= link_to quiz.title, quiz_path(quiz), class: "govuk-link" %>
+    </li>
   <% end %>
 </ul>
+
 
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
   <div class="govuk-accordion__section">
