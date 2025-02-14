@@ -9,6 +9,7 @@
   } %>
 
   <div class="govuk-width-container">
+  <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
     <main class="govuk-main-wrapper" id="main-content">
       <h1 class="govuk-heading-xl"><%= @quiz.title %></h1>
       <p class="govuk-body"><%= @quiz.description %></p>
@@ -23,7 +24,6 @@
       </ul>
 
       <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
-      <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
     </main>
   </div>
   
