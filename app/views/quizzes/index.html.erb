@@ -1,4 +1,14 @@
-<h1>All Quizzes</h1>
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: "production",
+  product_name: "Publishing",
+  browser_title: "A page title"
+} do %>
+  <!-- You probably want to use the header, main & footer components here -->
+    <%= render "govuk_publishing_components/components/layout_header", {
+    environment: "production"
+  } %>
+
+  <h1>All Quizzes</h1>
 <%= render "govuk_publishing_components/components/button", text: "Create New Quiz", href: new_quiz_path %>
 
 <ul>
@@ -57,17 +67,6 @@
     </div>
   </div>
 </div>
-
-<%= render "govuk_publishing_components/components/layout_for_admin", {
-  environment: "production",
-  product_name: "Publishing",
-  browser_title: "A page title"
-} do %>
-  <!-- You probably want to use the header, main & footer components here -->
-    <%= render "govuk_publishing_components/components/layout_header", {
-    environment: "production"
-  } %>
-
 
   <%= render "govuk_publishing_components/components/layout_footer", {} %>
 <% end %>
