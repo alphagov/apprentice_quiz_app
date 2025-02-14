@@ -14,10 +14,21 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'govuk-frontend.min', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
-  <body>
+  <body class="govuk-template__body">
+    <script>
+    document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
+  </script>
     <%= yield %>
     <%= javascript_include_tag "application", module: true %>
+
+  <script type="module" src="<%= asset_path 'govuk-frontend.min.js' %>"></script>
+  <script type="module">
+    import { initAll } from '<%= asset_path 'govuk-frontend.min.js' %>';
+    initAll();
+  </script>
   </body>
 </html>

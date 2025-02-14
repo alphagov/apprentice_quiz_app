@@ -1,0 +1,26 @@
+{
+  "name": "apprentice_quiz_app",
+  "version": "1.0.0",
+  "description": "This is a basic Rails-based quiz application that allows users to create quizzes and add questions to them. It provides a simple interface to manage quizzes and questions. I developed this as part of my journey of learning Rails as a student placement dev at the GDS.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunny-xyz/apprentice_quiz_app.git"
+  },
+  "author": "Mohammad Sunny SHafiq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sunny-xyz/apprentice_quiz_app/issues"
+  },
+  "homepage": "https://github.com/Sunny-xyz/apprentice_quiz_app#readme",
+  "dependencies": {
+    "govuk-frontend": "^5.8.0"
+  }
+}
