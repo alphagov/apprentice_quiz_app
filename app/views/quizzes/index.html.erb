@@ -14,4 +14,10 @@
   browser_title: "A page title"
 } do %>
   <!-- You probably want to use the header, main & footer components here -->
+    <%= render "govuk_publishing_components/components/layout_header", {
+    environment: "production"
+  } %>
+
+
+  <%= render "govuk_publishing_components/components/layout_footer", {} %>
 <% end %>
