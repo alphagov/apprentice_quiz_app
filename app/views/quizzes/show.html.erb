@@ -27,6 +27,7 @@
       
       <div class="govuk-button-group">
         <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
+        <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button" %>
       </div>
     </main>
   </div>
