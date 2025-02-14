@@ -8,22 +8,25 @@
     environment: "production"
   } %>
 
-    <h1>Create a New Quiz</h1>
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper" id="main-content">
+      <h1>Create a New Quiz</h1>
 
-  <%= form_with model: @quiz do |form| %>
-    <div>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div>
-      <%= form.label :description %>
-      <%= form.text_area :description %>
-    </div>
-    <div>
-      <%= form.submit "Create Quiz" %>
-    </div>
-  <% end %>
+      <%= form_with model: @quiz do |form| %>
+        <div>
+          <%= form.label :title %>
+          <%= form.text_field :title %>
+        </div>
+        <div>
+          <%= form.label :description %>
+          <%= form.text_area :description %>
+        </div>
+        <div>
+          <%= form.submit "Create Quiz" %>
+        </div>
+      <% end %>
+    </main>
+  </div>
   
   <%= render "govuk_publishing_components/components/layout_footer", {} %>
-
 <% end %>
