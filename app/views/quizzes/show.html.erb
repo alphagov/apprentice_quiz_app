@@ -1,4 +1,14 @@
-<h1><%= @quiz.title %></h1>
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: "production",
+  product_name: "Publishing",
+  browser_title: "A page title"
+} do %>
+  <!-- You probably want to use the header, main & footer components here -->
+  <%= render "govuk_publishing_components/components/layout_header", {
+    environment: "production"
+  } %>
+
+  <h1><%= @quiz.title %></h1>
 <p><%= @quiz.description %></p>
 
 <h2>Questions</h2>
@@ -13,3 +23,6 @@
 <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
 
 <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
+<%= render "govuk_publishing_components/components/layout_footer", {} %>
+
+<% end %>
