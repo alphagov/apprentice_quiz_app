@@ -8,21 +8,24 @@
     environment: "production"
   } %>
 
-  <h1><%= @quiz.title %></h1>
-<p><%= @quiz.description %></p>
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper" id="main-content">
+      <h1 class="govuk-heading-xl"><%= @quiz.title %></h1>
+      <p class="govuk-body"><%= @quiz.description %></p>
 
-<h2>Questions</h2>
-<ul>
-  <% @quiz.questions.each do |question| %>
-    <li>
-      <%= question.content %> (Answer: <%= question.correct_answer %>)
-    </li>
-  <% end %>
-</ul>
+      <h2 class="govuk-heading-m">Questions</h2>
+      <ul class="govuk-list">
+        <% @quiz.questions.each do |question| %>
+          <li class="govuk-body">
+            <%= question.content %> (Answer: <%= question.correct_answer %>)
+          </li>
+        <% end %>
+      </ul>
 
-<%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
-
-<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
-<%= render "govuk_publishing_components/components/layout_footer", {} %>
-
+      <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+      <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
+    </main>
+  </div>
+  
+  <%= render "govuk_publishing_components/components/layout_footer", {} %>
 <% end %>
