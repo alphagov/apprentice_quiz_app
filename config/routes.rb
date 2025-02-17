@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   end
 
   resources :quizzes do
-    get 'take', to: 'quiz_sessions#new', as: 'take'
-    post 'submit', to: 'quiz_sessions#create', on: :member, as: 'submit'
+    get "take", to: "quiz_sessions#new", as: "take"
+    post "submit", to: "quiz_sessions#create", on: :member, as: "submit"
     resources :questions
   end
 
