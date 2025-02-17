@@ -19,6 +19,10 @@
         <% @quiz.questions.each do |question| %>
           <li class="govuk-body">
             <%= question.content %> (Answer: <%= question.correct_answer %>)
+            <div class="govuk-button-group">
+              <%= link_to "Edit", edit_quiz_question_path(@quiz, question), class: "govuk-button" %>
+              <%= link_to "Delete", quiz_question_path(@quiz, question), method: :delete, data: { confirm: "Are you sure you want to delete this question?" }, class: "govuk-button govuk-button" %>
+            </div>
           </li>
         <% end %>
       </ul>
