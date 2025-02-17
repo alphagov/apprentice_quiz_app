@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :find_quiz
-  before_action :find_question, only: [:edit, :update, :destroy]
+  before_action :find_question, only: %i[edit update destroy]
 
   def new
     @question = @quiz.questions.build
@@ -15,9 +15,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def update
     if @question.update(question_params)
@@ -28,7 +26,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
+    @question.destroy!
     redirect_to quiz_path(@quiz), notice: "Question was successfully deleted."
   end
 
