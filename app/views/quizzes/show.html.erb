@@ -1,40 +1,26 @@
-<%= render "govuk_publishing_components/components/layout_for_admin", {
-  environment: "production",
-  product_name: "Publishing",
-  browser_title: "A page title"
-} do %>
-  <!-- You probably want to use the header, main & footer components here -->
-  <%= render "govuk_publishing_components/components/layout_header", {
-    environment: "production"
-  } %>
+<% content_for :page_title, @quiz.title %>
 
-  <div class="govuk-width-container">
-  <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
-    <main class="govuk-main-wrapper" id="main-content">
-      <h1 class="govuk-heading-xl"><%= @quiz.title %></h1>
-      <p class="govuk-body"><%= @quiz.description %></p>
+<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
 
-      <h2 class="govuk-heading-m">Questions</h2>
-      <ul class="govuk-list">
-        <% @quiz.questions.each do |question| %>
-          <li class="govuk-body">
-            <%= question.content %> (Answer: <%= question.correct_answer %>)
-            <div class="govuk-button-group">
-              <%= link_to "Edit", edit_quiz_question_path(@quiz, question), class: "govuk-button" %>
-              <%= link_to "Delete", quiz_question_path(@quiz, question), method: :delete, data: { confirm: "Are you sure you want to delete this question?" }, class: "govuk-button govuk-button" %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
+<h1 class="govuk-heading-xl"><%= @quiz.title %></h1>
+<p class="govuk-body"><%= @quiz.description %></p>
 
-      <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
-      
+<h2 class="govuk-heading-m">Questions</h2>
+<ul class="govuk-list">
+  <% @quiz.questions.each do |question| %>
+    <li class="govuk-body">
+      <%= question.content %> (Answer: <%= question.correct_answer %>)
       <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
-        <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button" %>
+        <%= link_to "Edit", edit_quiz_question_path(@quiz, question), class: "govuk-button" %>
+        <%= link_to "Delete", quiz_question_path(@quiz, question), method: :delete, data: { confirm: "Are you sure you want to delete this question?" }, class: "govuk-button govuk-button--destructive" %>
       </div>
-    </main>
-  </div>
-  
-  <%= render "govuk_publishing_components/components/layout_footer", {} %>
-<% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
+  <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button govuk-button--destructive" %>
+</div>

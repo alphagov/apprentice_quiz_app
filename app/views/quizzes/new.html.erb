@@ -1,33 +1,19 @@
-<%= render "govuk_publishing_components/components/layout_for_admin", {
-  environment: "production",
-  product_name: "Publishing",
-  browser_title: "A page title"
-} do %>
-  <!-- You probably want to use the header, main & footer components here -->
-  <%= render "govuk_publishing_components/components/layout_header", {
-    environment: "production"
-  } %>
+<% content_for :page_title, "Create a New Quiz" %>
 
-  <div class="govuk-width-container">
-  <%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
-    <main class="govuk-main-wrapper" id="main-content">
-    <h1 class="govuk-heading-xl">Create a New Quiz</h1>
+<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
 
-      <%= form_with model: @quiz do |form| %>
-        <div class="govuk-form-group">
-          <%= form.label :title, class: "govuk-label" %>
-          <%= form.text_field :title, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= form.label :description, class: "govuk-label" %>
-          <%= form.text_area :description, class: "govuk-textarea" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= form.submit "Create Quiz", class: "govuk-button" %>
-        </div>
-      <% end %>
-    </main>
+<h1 class="govuk-heading-xl">Create a New Quiz</h1>
+
+<%= form_with model: @quiz, local: true do |form| %>
+  <div class="govuk-form-group">
+    <%= form.label :title, class: "govuk-label" %>
+    <%= form.text_field :title, class: "govuk-input" %>
   </div>
-  
-  <%= render "govuk_publishing_components/components/layout_footer", {} %>
+  <div class="govuk-form-group">
+    <%= form.label :description, class: "govuk-label" %>
+    <%= form.text_area :description, class: "govuk-textarea" %>
+  </div>
+  <div class="govuk-form-group">
+    <%= form.submit "Create Quiz", class: "govuk-button" %>
+  </div>
 <% end %>

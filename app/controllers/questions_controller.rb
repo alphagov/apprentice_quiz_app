@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
   before_action :find_quiz
-  before_action :find_question, only: %i[edit update destroy]
 
   def new
     @question = @quiz.questions.build
