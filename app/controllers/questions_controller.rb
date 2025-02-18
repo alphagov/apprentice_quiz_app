@@ -9,25 +9,10 @@ class QuestionsController < ApplicationController
   def create
     @question = @quiz.questions.build(question_params)
     if @question.save
-      redirect_to quiz_path(@quiz), notice: "Question was successfully created."
+      redirect_to quiz_path(@quiz)
     else
       render :new
     end
-  end
-
-  def edit; end
-
-  def update
-    if @question.update(question_params)
-      redirect_to quiz_path(@quiz), notice: "Question was successfully updated."
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @question.destroy!
-    redirect_to quiz_path(@quiz), notice: "Question was successfully deleted."
   end
 
 private
