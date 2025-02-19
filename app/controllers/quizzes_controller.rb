@@ -1,5 +1,4 @@
 class QuizzesController < ApplicationController
-  layout "application"
   def index
     @quizzes = Quiz.all
   end
