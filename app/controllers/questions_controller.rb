@@ -20,10 +20,6 @@ private
     @quiz = Quiz.find(params[:quiz_id])
   end
 
-  def find_question
-    @question = @quiz.questions.find(params[:id])
-  end
-
   def question_params
     params.require(:question).permit(:content, :correct_answer)
   end

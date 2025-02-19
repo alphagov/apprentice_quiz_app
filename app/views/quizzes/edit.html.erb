@@ -1,8 +1,5 @@
 <% content_for :page_title, "Edit a Quiz" %>
-
-<%= render "govuk_publishing_components/components/back_link", href: quiz_path(@quiz) %>
-
-<h1 class="govuk-heading-xl">Edit Quiz</h1>
+<% content_for :back_link, quiz_path(@quiz) %>
 
 <%= form_with model: @quiz, local: true do |form| %>
   <div class="govuk-form-group">

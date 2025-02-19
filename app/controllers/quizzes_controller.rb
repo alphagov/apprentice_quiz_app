@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  layout "admin"
+  layout "application"
   def index
     @quizzes = Quiz.all
   end

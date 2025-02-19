@@ -1,8 +1,6 @@
 <% content_for :page_title, @quiz.title %>
+<% content_for :back_link, quizzes_path %>
 
-<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
-
-<h1 class="govuk-heading-xl"><%= @quiz.title %></h1>
 <p class="govuk-body"><%= @quiz.description %></p>
 
 <h2 class="govuk-heading-m">Questions</h2>
