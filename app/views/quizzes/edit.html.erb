@@ -12,7 +12,9 @@
         name: "quiz[description]",
         value: @quiz.description,
       } %>
-  <div class="govuk-form-group">
-    <%= form.submit "Update Quiz", class: "govuk-button" %>
-  </div>
+      
+<%= render "govuk_publishing_components/components/button", {
+        text: "Update Quiz",
+    } %>
+
 <% end %>

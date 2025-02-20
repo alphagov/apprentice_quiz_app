@@ -8,17 +8,15 @@
   <% @quiz.questions.each do |question| %>
     <li class="govuk-body">
       <%= question.content %> (Answer: <%= question.correct_answer %>)
-      <div class="govuk-button-group">
-        <%= link_to "Edit", edit_quiz_question_path(@quiz, question), class: "govuk-button" %>
-        <%= link_to "Delete", quiz_question_path(@quiz, question), method: :delete, data: { confirm: "Are you sure you want to delete this question?" }, class: "govuk-button govuk-button--destructive" %>
-      </div>
     </li>
   <% end %>
 </ul>
 
-<%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+</div>
 
 <div class="govuk-button-group">
   <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
-  <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button govuk-button--destructive" %>
+  <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button govuk-button--warning" %>
 </div>

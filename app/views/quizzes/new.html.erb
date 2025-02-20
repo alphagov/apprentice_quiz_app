@@ -10,7 +10,8 @@
         label: { text: "Description" },
         name: "quiz[description]",
       } %>
-  <div class="govuk-form-group">
-    <%= form.submit "Create Quiz", class: "govuk-button" %>
-  </div>
+<div class="govuk-form-group">
+  <%= render "govuk_publishing_components/components/button", { text: "Create Quiz", type: "submit" } %>
+</div>
+
 <% end %>

@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" class="govuk-template">
-  <head>
-    <title><%= content_for?(:page_title) ? yield(:page_title) : "Quiz App" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= yield :head %>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
-  <body class="govuk-template__body">
-    <script>
-      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
-    </script>
-    <%= render "govuk_publishing_components/components/layout_header", environment: "production" %>
-    <div class="govuk-width-container">
-      <% if content_for?(:back_link) %>
-        <%= render "govuk_publishing_components/components/back_link", href: yield(:back_link) %>
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: "development",
+  product_name: "Quiz",
+  browser_title: yield(:page_title)
+} do %>
+  <%= render "govuk_publishing_components/components/layout_header", environment: "development" %>
+  <div class="govuk-width-container">
+    <% if content_for?(:back_link) %>
+      <%= render "govuk_publishing_components/components/back_link", href: yield(:back_link) %>
+    <% end %>
+    <main class="govuk-main-wrapper" id="main-content">
+      <% if content_for?(:page_title) %>
+        <h1 class="govuk-heading-xl"><%= yield(:page_title) %></h1>
       <% end %>
-      <main class="govuk-main-wrapper" id="main-content">
-        <% if content_for?(:page_title) %>
-          <h1 class="govuk-heading-xl"><%= yield(:page_title) %></h1>
-        <% end %>
-        <%= yield %>
-      </main>
-    </div>
-    <%= render "govuk_publishing_components/components/layout_footer", {} %>
-    <%= javascript_include_tag "application", module: true, "data-turbolinks-track": "reload" %>
-  </body>
-</html>
+      <%= yield %>
+    </main>
+  </div>
+  <%= render "govuk_publishing_components/components/layout_footer", {} %>
+<% end %>
