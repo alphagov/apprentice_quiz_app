@@ -49,4 +49,17 @@ RSpec.describe "Questions", type: :request do
       expect(response.body).to include("Four")
     end
   end
+
+  describe "DELETE destroy" do
+    let!(:question) { quiz.questions.create!(content: "Delete this", correct_answer: "To be deleted") }
+
+    it "deletes the question and redirects to the quiz show page" do
+      expect {
+        delete quiz_question_path(quiz, question)
+      }.to change(quiz.questions, :count).by(-1)
+      expect(response).to redirect_to(quiz_path(quiz))
+      follow_redirect!
+      expect(response.body).not_to include("Delete this")
+    end
+  end
 end
