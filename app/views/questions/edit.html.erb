@@ -1,31 +1,16 @@
-<%= render "govuk_publishing_components/components/layout_for_admin", {
-  environment: "production",
-  product_name: "Publishing",
-  browser_title: "Edit Question"
-} do %>
-  <%= render "govuk_publishing_components/components/layout_header", { environment: "production" } %>
+<% content_for :page_title, "Edit Question" %>
+<% content_for :back_link, quiz_path(@quiz) %>
 
-  <div class="govuk-width-container">
-    <%= render "govuk_publishing_components/components/back_link", href: quiz_path(@quiz) %>
-    <main class="govuk-main-wrapper" id="main-content">
-      <h1 class="govuk-heading-xl">Edit Question</h1>
-      
-      <%= form_with model: [@quiz, @question], local: true do |form| %>
-        <div class="govuk-form-group">
-          <%= form.label :content, "Question", class: "govuk-label" %>
-          <%= form.text_field :content, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= form.label :correct_answer, "Answer", class: "govuk-label" %>
-          <%= form.text_field :correct_answer, class: "govuk-input" %>
-        </div>
-        <div class="govuk-form-group">
-          <%= form.submit "Update Question", class: "govuk-button" %>
-        </div>
-      <% end %>
-    </main>
+<%= form_with model: [@quiz, @question], local: true do |form| %>
+  <%= render "govuk_publishing_components/components/input", {
+        label: { text: "Question" },
+        name: "question[content]"
+      } %>
+  <%= render "govuk_publishing_components/components/input", {
+        label: { text: "Answer" },
+        name: "question[correct_answer]"
+      } %>
+  <div class="govuk-form-group">
+    <%= render "govuk_publishing_components/components/button", { text: "Update Question", type: "submit" } %>
   </div>
-
-  <%= render "govuk_publishing_components/components/layout_footer", {} %>
 <% end %>
-
