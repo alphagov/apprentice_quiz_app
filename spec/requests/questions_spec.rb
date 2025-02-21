@@ -24,4 +24,29 @@ RSpec.describe "Questions", type: :request do
       expect(response.body).to include("One")
     end
   end
+
+  describe "GET edit" do
+    let!(:question) { quiz.questions.create!(content: "One", correct_answer: "Two") }
+
+    it "renders the edit question form with pre-populated values" do
+      get edit_quiz_question_path(quiz, question)
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("Edit Question")
+      expect(response.body).to include("One")
+      expect(response.body).to include("Two")
+    end
+  end
+
+  describe "PATCH update" do
+    let!(:question) { quiz.questions.create!(content: "One", correct_answer: "Two") }
+
+    it "updates the question and redirects to the quiz show page" do
+      patch quiz_question_path(quiz, question), params: { question: { content: "Three", correct_answer: "Four" } }
+      expect(response).to redirect_to(quiz_path(quiz))
+      follow_redirect!
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("Three")
+      expect(response.body).to include("Four")
+    end
+  end
 end
