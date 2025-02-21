@@ -1,9 +1,21 @@
-<h1>All Quizzes</h1>
+<% content_for :page_title, "Quizzes Dashboard" %>
+
+<p class="govuk-body">
+  Manage and review your quizzes below. Create new quizzes or modify existing ones to keep your content up-to-date.
+</p>
+
 <%= render "govuk_publishing_components/components/button", text: "Create New Quiz", href: new_quiz_path %>
 
-
-<ul>
-  <% @quizzes.each do |quiz| %>
-    <li><%= link_to quiz.title, quiz_path(quiz) %></li>
-  <% end %>
-</ul>
+<h2 class="govuk-heading-m govuk-!-margin-top-3">Existing Quizzes</h2>
+<%= render "govuk_publishing_components/components/cards", {
+  columns: 3,
+  items: @quizzes.map do |quiz|
+    {
+      link: {
+        text: quiz.title,
+        path: quiz_path(quiz)
+      },
+      description: quiz.description
+    }
+  end
+} %>

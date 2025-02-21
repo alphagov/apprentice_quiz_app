@@ -1,15 +1,22 @@
-<h1><%= @quiz.title %></h1>
-<p><%= @quiz.description %></p>
+<% content_for :page_title, @quiz.title %>
+<% content_for :back_link, quizzes_path %>
 
-<h2>Questions</h2>
-<ul>
+<p class="govuk-body"><%= @quiz.description %></p>
+
+<h2 class="govuk-heading-m">Questions</h2>
+<ul class="govuk-list">
   <% @quiz.questions.each do |question| %>
-    <li>
+    <li class="govuk-body">
       <%= question.content %> (Answer: <%= question.correct_answer %>)
     </li>
   <% end %>
 </ul>
 
-<%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+</div>
 
-<%= render "govuk_publishing_components/components/back_link", href: quizzes_path %>
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
+  <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button govuk-button--warning" %>
+</div>
