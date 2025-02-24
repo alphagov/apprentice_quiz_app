@@ -3,6 +3,16 @@
 
 <p class="govuk-body"><%= @quiz.description %></p>
 
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", {
+        text: "Start now",
+        href: take_quiz_path(@quiz, 0),
+        start: true,
+        rel: "external"
+      } %>
+</div>
+
+
 <h2 class="govuk-heading-m">Questions</h2>
 <ul class="govuk-list">
   <% @quiz.questions.each do |question| %>
