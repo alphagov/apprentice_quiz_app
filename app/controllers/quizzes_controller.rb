@@ -52,10 +52,14 @@ class QuizzesController < ApplicationController
     next_index = current_index + 1
 
     if next_index >= @quiz.questions.count
-      redirect_to quiz_path(@quiz)
+      redirect_to results_quiz_path(@quiz)
     else
       redirect_to take_quiz_path(@quiz, next_index)
     end
+  end
+
+  def results
+    @quiz = Quiz.find(params[:id])
   end
 
 private
