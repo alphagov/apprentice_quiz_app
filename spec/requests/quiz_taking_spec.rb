@@ -22,7 +22,7 @@ RSpec.describe "Quiz Taking", type: :request do
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Quiz Results")
       expect(response.body).to include("Congratulations, you've completed the quiz")
-      expect(response.body).to include("Back to Quiz")
+      expect(response.body).to include("Back to Dashboard")
     end
   end
 end
