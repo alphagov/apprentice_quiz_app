@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   resources :quizzes do
     resources :questions
+    member do
+      get 'take/:question_index', action: :take, as: :take
+      post 'submit', action: :submit
+    end
   end
 
   root "quizzes#index"
