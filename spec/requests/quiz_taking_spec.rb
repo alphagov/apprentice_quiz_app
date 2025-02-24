@@ -15,4 +15,14 @@ RSpec.describe "Quiz Taking", type: :request do
       expect(response.body).to include("Sample Quiz", "Question 1 of 2", "What is the GDS?", "Submit Answer")
     end
   end
+
+  describe "GET /quizzes/:id/results" do
+    it "renders the results page with a congratulatory message and navigation button" do
+      get results_quiz_path(quiz)
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("Quiz Results")
+      expect(response.body).to include("Congratulations, you've completed the quiz")
+      expect(response.body).to include("Back to Quiz")
+    end
+  end
 end
