@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     member do
       get "take/:question_index", action: :take, as: :take
       post "submit", action: :submit
+      get "results", action: :results, as: :results
     end
   end
 
