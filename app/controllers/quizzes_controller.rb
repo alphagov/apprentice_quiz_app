@@ -39,6 +39,25 @@ class QuizzesController < ApplicationController
     redirect_to quizzes_url, notice: "Quiz was successfully destroyed."
   end
 
+  def take
+    @quiz = Quiz.find(params[:id])
+    @question_index = params[:question_index].to_i
+    @question = @quiz.questions[@question_index]
+    redirect_to quiz_path(@quiz) if @question.nil?
+  end
+
+  def submit
+    @quiz = Quiz.find(params[:id])
+    current_index = params[:question_index].to_i
+    next_index = current_index + 1
+
+    if next_index >= @quiz.questions.count
+      redirect_to quiz_path(@quiz)
+    else
+      redirect_to take_quiz_path(@quiz, next_index)
+    end
+  end
+
 private
 
   def quiz_params
