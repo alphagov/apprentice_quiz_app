@@ -20,8 +20,6 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       redirect_to quiz_path(@quiz)
-    else
-      render :edit
     end
   end
 

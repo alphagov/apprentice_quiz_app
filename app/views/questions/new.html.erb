@@ -1,16 +1,4 @@
 <% content_for :page_title, "Add a New Question" %>
 <% content_for :back_link, quiz_path(@quiz) %>
 
-<%= form_with model: [@quiz, @question], local: true do |form| %>
-  <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Question" },
-        name: "question[content]"
-      } %>
-  <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Answer" },
-        name: "question[correct_answer]"
-      } %>
-  <div class="govuk-form-group">
-    <%= render "govuk_publishing_components/components/button", { text: "Create Question", type: "submit" } %>
-  </div>
-<% end %>
+<%= render "form" %>
