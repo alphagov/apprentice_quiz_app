@@ -10,7 +10,7 @@ RSpec.describe "Quiz Taking", type: :request do
 
   describe "GET /quizzes/:id/take/:question_index" do
     it "displays the current question and form" do
-      get take_quiz_path(quiz, 0)
+      get take_quiz_question_quiz_path(quiz, quiz.questions.first.id)
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Sample Quiz", "Question 1 of 2", "What is the GDS?", "Submit Answer")
     end
@@ -18,7 +18,7 @@ RSpec.describe "Quiz Taking", type: :request do
 
   describe "GET /quizzes/:id/results" do
     it "renders the results page with a congratulatory message and navigation button" do
-      get results_quiz_path(quiz)
+      get results_quiz_quiz_path(quiz)
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Quiz Results")
       expect(response.body).to include("Congratulations, you've completed the quiz")

@@ -35,13 +35,13 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find(params[:id])
-    @quiz.destroy
+    @quiz.destroy!
     redirect_to quizzes_path, notice: "Quiz was successfully deleted."
   end
 
-  private
+private
 
   def quiz_params
-    params.require(:quiz).permit(:title, :description)
+    params.expect(quiz: %i[title description])
   end
 end
