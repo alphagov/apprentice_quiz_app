@@ -41,20 +41,20 @@ class QuizzesController < ApplicationController
 
   def take
     @quiz = Quiz.find(params[:id])
-    @question_index = params[:question_index].to_i
-    @question = @quiz.questions[@question_index]
-    redirect_to quiz_path(@quiz) if @question.nil?
+    @question = @quiz.questions.find(params[:question_id])
+    question_ids = @quiz.questions.order(:id).pluck(:id)
+    @question_index = question_ids.index(@question.id) || 0
   end
 
   def submit
     @quiz = Quiz.find(params[:id])
-    current_index = params[:question_index].to_i
-    next_index = current_index + 1
+    current_question = @quiz.questions.find(params[:question_id])
+    next_question = @quiz.questions.where("id > ?", current_question.id).first
 
-    if next_index >= @quiz.questions.count
+    if next_question.nil?
       redirect_to results_quiz_path(@quiz)
     else
-      redirect_to take_quiz_path(@quiz, next_index)
+      redirect_to take_quiz_path(@quiz, next_question.id)
     end
   end
 

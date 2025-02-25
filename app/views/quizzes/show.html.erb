@@ -6,12 +6,11 @@
 <div class="govuk-button-group">
   <%= render "govuk_publishing_components/components/button", {
         text: "Start now",
-        href: take_quiz_path(@quiz, 0),
+        href: take_quiz_path(@quiz, @quiz.questions.first.id),
         start: true,
         rel: "external"
       } %>
 </div>
-
 
 <h2 class="govuk-heading-m">Questions</h2>
 <ul class="govuk-list">

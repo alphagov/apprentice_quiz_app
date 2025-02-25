@@ -12,6 +12,6 @@
         label: { text: "Your Answer" },
         name: "answer",
     } %>
-    <%= form.hidden_field :question_index, value: @question_index %>
+    <%= hidden_field_tag "question_id", @question.id %>
     <%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
 <% end %>
