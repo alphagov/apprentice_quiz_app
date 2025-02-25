@@ -8,10 +8,10 @@
 </div>
 
 <%= form_with url: submit_quiz_path(@quiz), method: :post, local: true do |form| %>
-    <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Your Answer" },
-        name: "answer",
+<%= render "govuk_publishing_components/components/input", {
+      label: { text: "Your Answer" },
+      name: "answer"
     } %>
-    <%= hidden_field_tag "question_id", @question.id %>
-    <%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
+<%= hidden_field_tag "question_id", @question.id %>
+<%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
 <% end %>

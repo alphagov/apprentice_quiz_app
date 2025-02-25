@@ -7,8 +7,8 @@ Rails.application.routes.draw do
     resources :questions
     member do
       get "take/:question_id", action: :take, as: :take
-      post "submit", action: :submit
-      get "results", action: :results, as: :results
+      post "submit"
+      get "results"
     end
   end
 
