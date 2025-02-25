@@ -7,7 +7,7 @@
     <p class="govuk-body"><%= @question.content %></p>
 </div>
 
-<%= form_with url: submit_quiz_path(@quiz), method: :post, local: true do |form| %>
+<%= form_with url: take_quiz_submit_quiz_path(@quiz, @question.id), method: :post, local: true do |form| %>
 <%= render "govuk_publishing_components/components/input", {
       label: { text: "Your Answer" },
       name: "answer"

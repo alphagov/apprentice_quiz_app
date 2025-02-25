@@ -35,34 +35,11 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find(params[:id])
-    @quiz.destroy!
-    redirect_to quizzes_url, notice: "Quiz was successfully destroyed."
+    @quiz.destroy
+    redirect_to quizzes_path, notice: "Quiz was successfully deleted."
   end
 
-  def take
-    @quiz = Quiz.find(params[:id])
-    @question = @quiz.questions.find(params[:question_id])
-    question_ids = @quiz.questions.order(:id).pluck(:id)
-    @question_index = question_ids.index(@question.id) || 0
-  end
-
-  def submit
-    @quiz = Quiz.find(params[:id])
-    current_question = @quiz.questions.find(params[:question_id])
-    next_question = @quiz.questions.where("id > ?", current_question.id).first
-
-    if next_question.nil?
-      redirect_to results_quiz_path(@quiz)
-    else
-      redirect_to take_quiz_path(@quiz, next_question.id)
-    end
-  end
-
-  def results
-    @quiz = Quiz.find(params[:id])
-  end
-
-private
+  private
 
   def quiz_params
     params.require(:quiz).permit(:title, :description)
