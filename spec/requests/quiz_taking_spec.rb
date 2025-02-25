@@ -8,7 +8,7 @@ RSpec.describe "Quiz Taking", type: :request do
     quiz.questions.create!(content: "When is Easter?", correct_answer: "April 20th")
   end
 
-  describe "GET /quizzes/:id/take/:question_index" do
+  describe "GET /quizzes/:id/take/:question_id" do
     it "displays the current question and form" do
       get take_quiz_question_quiz_path(quiz, quiz.questions.first.id)
       expect(response).to have_http_status(:success)
@@ -23,6 +23,22 @@ RSpec.describe "Quiz Taking", type: :request do
       expect(response.body).to include("Quiz Results")
       expect(response.body).to include("Congratulations, you've completed the quiz")
       expect(response.body).to include("Back to Dashboard")
+    end
+  end
+
+  describe "POST /quizzes/:id/submit/:question_id" do
+    context "when there is a next question" do
+      it "redirects to the next question" do
+        post take_quiz_submit_quiz_path(quiz, quiz.questions.first.id), params: { answer: "Government Digital Service" }
+        expect(response).to redirect_to(take_quiz_question_quiz_path(quiz, quiz.questions.second.id))
+      end
+    end
+
+    context "when there is no next question" do
+      it "redirects to the results page" do
+        post take_quiz_submit_quiz_path(quiz, quiz.questions.second.id), params: { answer: "April 20th" }
+        expect(response).to redirect_to(results_quiz_quiz_path(quiz))
+      end
     end
   end
 end
