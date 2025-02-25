@@ -1,0 +1,10 @@
+<% content_for :page_title, "Quiz Results" %>
+<% content_for :back_link, quiz_path(@quiz) %>
+
+<p class="govuk-body">Congratulations, you've completed the quiz: <%= @quiz.title %></p>
+
+<p class="govuk-body">Your Score: [Score Placeholder]</p>
+
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path(@quiz) } %>
+</div>

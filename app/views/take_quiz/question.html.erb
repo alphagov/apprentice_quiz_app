@@ -1,0 +1,17 @@
+<% content_for :page_title, "#{@quiz.title}" %>
+<% content_for :back_link, quiz_path(@quiz) %>
+
+<p class="govuk-body">Question <%= @question_index + 1 %> of <%= @quiz.questions.count %>:</p>
+
+<div class="govuk-!-margin-bottom-5">
+    <p class="govuk-body"><%= @question.content %></p>
+</div>
+
+<%= form_with url: take_quiz_submit_path(@quiz.id, @question.id), method: :post, local: true do |form| %>
+<%= render "govuk_publishing_components/components/input", {
+      label: { text: "Your Answer" },
+      name: "answer"
+    } %>
+<%= hidden_field_tag "question_id", @question.id %>
+<%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
+<% end %>

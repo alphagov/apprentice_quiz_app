@@ -39,6 +39,6 @@ private
   end
 
   def question_params
-    params.require(:question).permit(:content, :correct_answer)
+    params.expect(question: %i[content correct_answer])
   end
 end
