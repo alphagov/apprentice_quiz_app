@@ -7,7 +7,7 @@
   <div class="govuk-button-group">
     <%= render "govuk_publishing_components/components/button", {
           text: "Start now",
-          href: take_quiz_question_quiz_path(@quiz, @quiz.questions.first.id),
+          href: take_quiz_question_path(@quiz.id, @quiz.questions.first.id),
           start: true
         } %>
   </div>
