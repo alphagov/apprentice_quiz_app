@@ -1,49 +1,91 @@
+<% if @question.errors.any? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+        message: "There is a problem with the form. Please check the errors below."
+      } %>
+<% end %>
+
 <%= form_with(model: [@quiz, @question], local: true) do |f| %>
   <%= render "govuk_publishing_components/components/input", {
-    label: { text: "Question" },
-    name: "question[content]",
-    value: @question.content,
-    id: "question_content"
-  } %>
+        label: { text: "Question" },
+        name: "question[content]",
+        value: @question.content,
+        id: "question_content"
+      } %>
+  <% if @question.errors[:content].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:content].first,
+          id: "question_content_error"
+        } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
-    label: { text: "Option A" },
-    name: "question[option_a]",
-    value: @question.option_a,
-    id: "question_option_a"
-  } %>
+        label: { text: "Option A" },
+        name: "question[option_a]",
+        value: @question.option_a,
+        id: "question_option_a"
+      } %>
+  <% if @question.errors[:option_a].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:option_a].first,
+          id: "question_option_a_error"
+        } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
-    label: { text: "Option B" },
-    name: "question[option_b]",
-    value: @question.option_b,
-    id: "question_option_b"
-  } %>
+        label: { text: "Option B" },
+        name: "question[option_b]",
+        value: @question.option_b,
+        id: "question_option_b"
+      } %>
+  <% if @question.errors[:option_b].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:option_b].first,
+          id: "question_option_b_error"
+        } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
-    label: { text: "Option C" },
-    name: "question[option_c]",
-    value: @question.option_c,
-    id: "question_option_c"
-  } %>
+        label: { text: "Option C" },
+        name: "question[option_c]",
+        value: @question.option_c,
+        id: "question_option_c"
+      } %>
+  <% if @question.errors[:option_c].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:option_c].first,
+          id: "question_option_c_error"
+        } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
-    label: { text: "Option D" },
-    name: "question[option_d]",
-    value: @question.option_d,
-    id: "question_option_d"
-  } %>
+        label: { text: "Option D" },
+        name: "question[option_d]",
+        value: @question.option_d,
+        id: "question_option_d"
+      } %>
+  <% if @question.errors[:option_d].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:option_d].first,
+          id: "question_option_d_error"
+        } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/radio", {
-    heading: "Select the correct option",
-    name: "question[correct_option]",
-    items: [
-      { value: "option_a", text: "Option A" },
-      { value: "option_b", text: "Option B" },
-      { value: "option_c", text: "Option C" },
-      { value: "option_d", text: "Option D" }
-    ]
-  } %>
+        heading: "Select the correct option",
+        name: "question[correct_option]",
+        items: [
+          { value: "option_a", text: "Option A" },
+          { value: "option_b", text: "Option B" },
+          { value: "option_c", text: "Option C" },
+          { value: "option_d", text: "Option D" }
+        ]
+      } %>
+  <% if @question.errors[:correct_option].present? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+          text: @question.errors[:correct_option].first,
+          id: "question_correct_option_error"
+        } %>
+  <% end %>
 
   <%= f.submit "Save", class: "govuk-button" %>
 <% end %>
