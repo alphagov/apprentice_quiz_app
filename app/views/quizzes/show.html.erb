@@ -6,31 +6,75 @@
 <% if @quiz.questions.any? %>
   <div class="govuk-button-group">
     <%= render "govuk_publishing_components/components/button", {
-          text: "Start now",
-          href: take_quiz_question_path(@quiz.id, @quiz.questions.first.id),
-          start: true
-        } %>
+      text: "Start now",
+      href: take_quiz_question_path(@quiz.id, @quiz.questions.first.id),
+      start: true
+    } %>
+
+    <button id="toggle-questions" class="govuk-button" type="button">
+      Show Questions
+    </button>
   </div>
 <% end %>
 
-<h2 class="govuk-heading-m">Questions</h2>
-<ul class="govuk-list">
-  <% @quiz.questions.each do |question| %>
-    <li class="govuk-body">
-      <%= question.content %> (Answer: <%= question.correct_answer %>)
-      <div class="govuk-button-group">
-        <%= render "govuk_publishing_components/components/button", text: "Edit", href: edit_quiz_question_path(@quiz, question) %>
-        <%= link_to "Delete", quiz_question_path(@quiz, question), method: :delete, data: { confirm: "Are you sure you want to delete this question?" }, class: "govuk-button govuk-button--warning" %>
-      </div>
-    </li>
-  <% end %>
-</ul>
-
-<div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", text: "Add Question", href: new_quiz_question_path(@quiz) %>
+<div id="questions-list" style="display: none; margin-top: 1em;">
+  <h2 class="govuk-heading-m">Questions</h2>
+  <ul class="govuk-list">
+    <% @quiz.questions.each do |question| %>
+      <li class="govuk-body">
+        <%= question.content %> (Answer: <%= question.correct_option %>)
+        <div class="govuk-button-group">
+          <%= render "govuk_publishing_components/components/button", 
+              text: "Edit", 
+              href: edit_quiz_question_path(@quiz, question) 
+          %>
+          <%= link_to "Delete", 
+              quiz_question_path(@quiz, question), 
+              method: :delete, 
+              data: { confirm: "Are you sure you want to delete this question?" }, 
+              class: "govuk-button govuk-button--warning" 
+          %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
 
-<div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", text: "Edit Quiz", href: edit_quiz_path(@quiz) %>
-  <%= link_to "Delete Quiz", quiz_path(@quiz), method: :delete, data: { confirm: "Are you sure you want to delete this quiz?" }, class: "govuk-button govuk-button--warning" %>
+<div class="govuk-button-group" style="margin-top: 1em;">
+  <%= render "govuk_publishing_components/components/button", 
+      text: "Add Question", 
+      href: new_quiz_question_path(@quiz) 
+  %>
 </div>
+
+<div class="govuk-button-group" style="margin-top: 1em;">
+  <%= render "govuk_publishing_components/components/button", 
+      text: "Edit Quiz", 
+      href: edit_quiz_path(@quiz) 
+  %>
+  <%= link_to "Delete Quiz", 
+      quiz_path(@quiz), 
+      method: :delete, 
+      data: { confirm: "Are you sure you want to delete this quiz?" }, 
+      class: "govuk-button govuk-button--warning" 
+  %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var toggleButton = document.getElementById("toggle-questions");
+    var questionsList = document.getElementById("questions-list");
+
+    if (toggleButton) {
+      toggleButton.addEventListener("click", function() {
+        if (questionsList.style.display === "none") {
+          questionsList.style.display = "block";
+          toggleButton.textContent = "Hide Questions";
+        } else {
+          questionsList.style.display = "none";
+          toggleButton.textContent = "Show Questions";
+        }
+      });
+    }
+  });
+</script>
