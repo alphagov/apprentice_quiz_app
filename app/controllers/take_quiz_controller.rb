@@ -31,7 +31,7 @@ class TakeQuizController < ApplicationController
     end
   end
 
-  private
+private
 
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])
