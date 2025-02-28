@@ -3,7 +3,7 @@
 
 <p class="govuk-body">Congratulations, you've completed the quiz: <%= @quiz.title %></p>
 
-<p class="govuk-body">Your Score: [Score Placeholder]</p>
+<p class="govuk-body">You scored <%= @score %> out of <%= @quiz.questions.count %>.</p>
 
 <div class="govuk-button-group">
   <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path(@quiz) } %>
