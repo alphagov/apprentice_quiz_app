@@ -9,6 +9,11 @@ class TakeQuizController < ApplicationController
 
   def submit
     current_question = @quiz.questions.find(params[:question_id])
+    user_answer = params[:answer]
+    session[:quiz_answers] ||= {}
+    session[:quiz_answers][@quiz.id.to_s] ||= {}
+    session[:quiz_answers][@quiz.id.to_s][current_question.id.to_s] = user_answer
+
     next_question = @quiz.questions.where("id > ?", current_question.id).first
 
     if next_question
@@ -18,9 +23,15 @@ class TakeQuizController < ApplicationController
     end
   end
 
-  def results; end
+  def results
+    user_answers = (session[:quiz_answers] && session[:quiz_answers][@quiz.id.to_s]) || {}
+    @score = @quiz.questions.sum do |q|
+      user_answer = user_answers[q.id.to_s]
+      user_answer.to_s == q.correct_option.to_s ? 1 : 0
+    end
+  end
 
-private
+  private
 
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])

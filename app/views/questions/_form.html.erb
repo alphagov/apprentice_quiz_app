@@ -1,15 +1,49 @@
-<%= form_with model: [@quiz, @question], local: true do |form| %>
-    <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Question" },
-        name: "question[content]",
-        value: @question.content
-    } %>
-    <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Answer" },
-        name: "question[correct_answer]",
-        value: @question.correct_answer
-    } %>
-    <div class="govuk-form-group">
-      <%= render "govuk_publishing_components/components/button", { text: @question.new_record? ? "Create Question" : "Update Question", type: "submit" } %>
-    </div>
-  <% end %>
+<%= form_with(model: [@quiz, @question], local: true) do |f| %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Question" },
+    name: "question[content]",
+    value: @question.content,
+    id: "question_content"
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Option A" },
+    name: "question[option_a]",
+    value: @question.option_a,
+    id: "question_option_a"
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Option B" },
+    name: "question[option_b]",
+    value: @question.option_b,
+    id: "question_option_b"
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Option C" },
+    name: "question[option_c]",
+    value: @question.option_c,
+    id: "question_option_c"
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: { text: "Option D" },
+    name: "question[option_d]",
+    value: @question.option_d,
+    id: "question_option_d"
+  } %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: "Select the correct option",
+    name: "question[correct_option]",
+    items: [
+      { value: "option_a", text: "Option A" },
+      { value: "option_b", text: "Option B" },
+      { value: "option_c", text: "Option C" },
+      { value: "option_d", text: "Option D" }
+    ]
+  } %>
+
+  <%= f.submit "Save", class: "govuk-button" %>
+<% end %>
