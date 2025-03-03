@@ -40,5 +40,5 @@ private
 
   def question_params
     params.require(:question).permit(:content, :option_a, :option_b, :option_c, :option_d, :correct_option)
-  end  
+  end
 end
