@@ -14,13 +14,13 @@ RSpec.describe "Questions", type: :request do
   describe "POST create" do
     it "creates a new question and redirects to the quiz show page" do
       expect {
-        post quiz_questions_path(quiz), params: { question: { 
-          content: "One", 
-          option_a: "Alpha", 
-          option_b: "Beta", 
-          option_c: "Gamma", 
-          option_d: "Delta", 
-          correct_option: "option_a" 
+        post quiz_questions_path(quiz), params: { question: {
+          content: "One",
+          option_a: "Alpha",
+          option_b: "Beta",
+          option_c: "Gamma",
+          option_d: "Delta",
+          correct_option: "option_a",
         } }
       }.to change(quiz.questions, :count).by(1)
 
@@ -34,12 +34,12 @@ RSpec.describe "Questions", type: :request do
   describe "GET edit" do
     let(:question) do
       quiz.questions.create!(
-        content: "One", 
-        option_a: "Alpha", 
-        option_b: "Beta", 
-        option_c: "Gamma", 
-        option_d: "Delta", 
-        correct_option: "option_a"
+        content: "One",
+        option_a: "Alpha",
+        option_b: "Beta",
+        option_c: "Gamma",
+        option_d: "Delta",
+        correct_option: "option_a",
       )
     end
 
@@ -55,23 +55,23 @@ RSpec.describe "Questions", type: :request do
   describe "PATCH update" do
     let(:question) do
       quiz.questions.create!(
-        content: "One", 
-        option_a: "Alpha", 
-        option_b: "Beta", 
-        option_c: "Gamma", 
-        option_d: "Delta", 
-        correct_option: "option_a"
+        content: "One",
+        option_a: "Alpha",
+        option_b: "Beta",
+        option_c: "Gamma",
+        option_d: "Delta",
+        correct_option: "option_a",
       )
     end
 
     it "updates the question and redirects to the quiz show page" do
-      patch quiz_question_path(quiz, question), params: { question: { 
-        content: "Three", 
-        option_a: "Alpha2", 
-        option_b: "Beta2", 
-        option_c: "Gamma2", 
-        option_d: "Delta2", 
-        correct_option: "option_b" 
+      patch quiz_question_path(quiz, question), params: { question: {
+        content: "Three",
+        option_a: "Alpha2",
+        option_b: "Beta2",
+        option_c: "Gamma2",
+        option_d: "Delta2",
+        correct_option: "option_b",
       } }
       expect(response).to redirect_to(quiz_path(quiz))
       follow_redirect!
@@ -84,12 +84,12 @@ RSpec.describe "Questions", type: :request do
   describe "DELETE destroy" do
     let!(:question) do
       quiz.questions.create!(
-        content: "Delete this", 
-        option_a: "Alpha", 
-        option_b: "Beta", 
-        option_c: "Gamma", 
-        option_d: "Delta", 
-        correct_option: "option_a"
+        content: "Delete this",
+        option_a: "Alpha",
+        option_b: "Beta",
+        option_c: "Gamma",
+        option_d: "Delta",
+        correct_option: "option_a",
       )
     end
 

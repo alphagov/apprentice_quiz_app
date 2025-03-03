@@ -10,7 +10,7 @@ RSpec.describe "Quiz Taking", type: :request do
       option_b: "Global Distribution System",
       option_c: "Good Data Setup",
       option_d: "Generic Data Service",
-      correct_option: "option_a"
+      correct_option: "option_a",
     )
     quiz.questions.create!(
       content: "When is Easter?",
@@ -18,7 +18,7 @@ RSpec.describe "Quiz Taking", type: :request do
       option_b: "Never",
       option_c: "January 1st",
       option_d: "December 25th",
-      correct_option: "option_a"
+      correct_option: "option_a",
     )
   end
 
