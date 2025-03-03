@@ -14,7 +14,14 @@ RSpec.describe "Questions", type: :request do
   describe "POST create" do
     it "creates a new question and redirects to the quiz show page" do
       expect {
-        post quiz_questions_path(quiz), params: { question: { content: "One", correct_answer: "Two" } }
+        post quiz_questions_path(quiz), params: { question: { 
+          content: "One", 
+          option_a: "Alpha", 
+          option_b: "Beta", 
+          option_c: "Gamma", 
+          option_d: "Delta", 
+          correct_option: "option_a" 
+        } }
       }.to change(quiz.questions, :count).by(1)
 
       expect(response).to redirect_to(quiz_path(quiz))
@@ -25,32 +32,66 @@ RSpec.describe "Questions", type: :request do
   end
 
   describe "GET edit" do
-    let(:question) { quiz.questions.create!(content: "One", correct_answer: "Two") }
+    let(:question) do
+      quiz.questions.create!(
+        content: "One", 
+        option_a: "Alpha", 
+        option_b: "Beta", 
+        option_c: "Gamma", 
+        option_d: "Delta", 
+        correct_option: "option_a"
+      )
+    end
 
     it "renders the edit question form with pre-populated values" do
       get edit_quiz_question_path(quiz, question)
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Edit Question")
                            .and include("One")
-                           .and include("Two")
+                           .and include("Alpha")
     end
   end
 
   describe "PATCH update" do
-    let(:question) { quiz.questions.create!(content: "One", correct_answer: "Two") }
+    let(:question) do
+      quiz.questions.create!(
+        content: "One", 
+        option_a: "Alpha", 
+        option_b: "Beta", 
+        option_c: "Gamma", 
+        option_d: "Delta", 
+        correct_option: "option_a"
+      )
+    end
 
     it "updates the question and redirects to the quiz show page" do
-      patch quiz_question_path(quiz, question), params: { question: { content: "Three", correct_answer: "Four" } }
+      patch quiz_question_path(quiz, question), params: { question: { 
+        content: "Three", 
+        option_a: "Alpha2", 
+        option_b: "Beta2", 
+        option_c: "Gamma2", 
+        option_d: "Delta2", 
+        correct_option: "option_b" 
+      } }
       expect(response).to redirect_to(quiz_path(quiz))
       follow_redirect!
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Three")
-      expect(response.body).to include("Four")
+      expect(response.body).to include("option_b")
     end
   end
 
   describe "DELETE destroy" do
-    let!(:question) { quiz.questions.create!(content: "Delete this", correct_answer: "To be deleted") }
+    let!(:question) do
+      quiz.questions.create!(
+        content: "Delete this", 
+        option_a: "Alpha", 
+        option_b: "Beta", 
+        option_c: "Gamma", 
+        option_d: "Delta", 
+        correct_option: "option_a"
+      )
+    end
 
     it "deletes the question and redirects to the quiz show page" do
       expect {
