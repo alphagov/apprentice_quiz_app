@@ -7,8 +7,8 @@
         title: "There is a problem",
         description: "Please fix the following errors:",
         items: [
-          { text: @quiz.errors.full_messages_for(:title).join(", "), href: "#quiz_title" },
-          { text: @quiz.errors.full_messages_for(:description).join(", "), href: "#quiz_description" }
+          { text: h(@quiz.errors.full_messages_for(:title).join(", ")), href: "#quiz_title" },
+          { text: h(@quiz.errors.full_messages_for(:description).join(", ")), href: "#quiz_description" }
         ]
       } %>
 <% end %>
@@ -22,7 +22,7 @@
       } %>
   <% if @quiz.errors[:title].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @quiz.errors.full_messages_for(:title).join(", "),
+          text: h(@quiz.errors.full_messages_for(:title).join(", ")),
           id: "quiz_title_error"
         } %>
   <% end %>
@@ -35,12 +35,12 @@
       } %>
   <% if @quiz.errors[:description].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @quiz.errors.full_messages_for(:description).join(", "),
+          text: h(@quiz.errors.full_messages_for(:description).join(", ")),
           id: "quiz_description_error"
         } %>
   <% end %>
 
-<div class="govuk-form-group">
-  <%= render "govuk_publishing_components/components/button", { text: "Create Quiz", type: "submit" } %>
-</div>
+  <div class="govuk-form-group">
+    <%= render "govuk_publishing_components/components/button", { text: "Create Quiz", type: "submit" } %>
+  </div>
 <% end %>

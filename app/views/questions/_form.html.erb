@@ -1,6 +1,15 @@
 <% if @question.errors.any? %>
   <%= render "govuk_publishing_components/components/error_alert", {
-        message: "There is a problem with the form. Please check the errors below."
+        message: "There are errors with your submission."
+      } %>
+
+  <%= render "govuk_publishing_components/components/error_summary", {
+        id: "error-summary",
+        title: "There is a problem",
+        description: "Please fix the following errors:",
+        items: @question.errors.map { |attribute, message|
+          { text: h(@question.errors.full_message(attribute, message)), href: "#question_#{attribute}" }
+        }
       } %>
 <% end %>
 
@@ -13,7 +22,7 @@
       } %>
   <% if @question.errors[:content].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:content].first,
+          text: h(@question.errors.full_messages_for(:content).join(", ")),
           id: "question_content_error"
         } %>
   <% end %>
@@ -26,7 +35,7 @@
       } %>
   <% if @question.errors[:option_a].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:option_a].first,
+          text: h(@question.errors.full_messages_for(:option_a).join(", ")),
           id: "question_option_a_error"
         } %>
   <% end %>
@@ -39,7 +48,7 @@
       } %>
   <% if @question.errors[:option_b].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:option_b].first,
+          text: h(@question.errors.full_messages_for(:option_b).join(", ")),
           id: "question_option_b_error"
         } %>
   <% end %>
@@ -52,7 +61,7 @@
       } %>
   <% if @question.errors[:option_c].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:option_c].first,
+          text: h(@question.errors.full_messages_for(:option_c).join(", ")),
           id: "question_option_c_error"
         } %>
   <% end %>
@@ -65,7 +74,7 @@
       } %>
   <% if @question.errors[:option_d].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:option_d].first,
+          text: h(@question.errors.full_messages_for(:option_d).join(", ")),
           id: "question_option_d_error"
         } %>
   <% end %>
@@ -82,7 +91,7 @@
       } %>
   <% if @question.errors[:correct_option].present? %>
     <%= render "govuk_publishing_components/components/error_message", {
-          text: @question.errors[:correct_option].first,
+          text: h(@question.errors.full_messages_for(:correct_option).join(", ")),
           id: "question_correct_option_error"
         } %>
   <% end %>
