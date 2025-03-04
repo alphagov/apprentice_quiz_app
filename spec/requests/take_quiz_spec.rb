@@ -58,4 +58,44 @@ RSpec.describe "Quiz Taking", type: :request do
       end
     end
   end
+
+  describe "Quiz scoring" do
+    context "when all answers are correct" do
+      before do
+        post take_quiz_submit_path(quiz.id, quiz.questions.first.id), params: { answer: "option_a" }
+        post take_quiz_submit_path(quiz.id, quiz.questions.second.id), params: { answer: "option_b" }
+      end
+
+      it "displays a score of 2 out of 2" do
+        get take_quiz_results_path(quiz.id)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include("You scored 2 out of 2")
+      end
+    end
+
+    context "when one answer is incorrect" do
+      before do
+        post take_quiz_submit_path(quiz.id, quiz.questions.first.id), params: { answer: "option_a" }
+        post take_quiz_submit_path(quiz.id, quiz.questions.second.id), params: { answer: "option_a" } # incorrect for question 2
+      end
+
+      it "displays a score of 1 out of 2" do
+        get take_quiz_results_path(quiz.id)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include("You scored 1 out of 2")
+      end
+    end
+
+    context "when one answer is missing" do
+      before do
+        post take_quiz_submit_path(quiz.id, quiz.questions.first.id), params: { answer: "option_a" }
+      end
+
+      it "displays a score of 1 out of 2" do
+        get take_quiz_results_path(quiz.id)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include("You scored 1 out of 2")
+      end
+    end
+  end
 end
