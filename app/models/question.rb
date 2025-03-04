@@ -8,18 +8,9 @@ class Question < ApplicationRecord
     option_d: "option_d",
   }
 
-  def correct_answer_text
-    case correct_option
-    when "option_a"
-      option_a
-    when "option_b"
-      option_b
-    when "option_c"
-      option_c
-    when "option_d"
-      option_d
-    else
-      "No answer defined"
-    end
+  def correct_answer
+    raise "No answer defined" if correct_option.blank?
+
+    public_send(correct_option.to_sym)
   end
 end
