@@ -11,8 +11,8 @@ class TakeQuizController < ApplicationController
     current_question = @quiz.questions.find(params[:question_id])
     user_answer = params[:answer]
     session[:quiz_answers] ||= {}
-    session[:quiz_answers][@quiz.id] ||= {}
-    session[:quiz_answers][@quiz.id][current_question.id] = user_answer
+    session[:quiz_answers][@quiz.id.to_s] ||= {}
+    session[:quiz_answers][@quiz.id.to_s][current_question.id.to_s] = user_answer
 
     next_question = @quiz.questions.where("id > ?", current_question.id).first
 
@@ -24,9 +24,9 @@ class TakeQuizController < ApplicationController
   end
 
   def results
-    user_answers = (session[:quiz_answers] && session[:quiz_answers][@quiz.id]) || {}
+    user_answers = session[:quiz_answers]&.[](@quiz.id.to_s) || {}
     @score = @quiz.questions.sum do |q|
-      user_answer = user_answers[q.id]
+      user_answer = user_answers[q.id.to_s]
       next 0 unless user_answer
 
       user_answer == q.correct_option ? 1 : 0
