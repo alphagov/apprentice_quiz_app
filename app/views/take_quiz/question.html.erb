@@ -4,14 +4,19 @@
 <p class="govuk-body">Question <%= @question_index + 1 %> of <%= @quiz.questions.count %>:</p>
 
 <div class="govuk-!-margin-bottom-5">
-    <p class="govuk-body"><%= @question.content %></p>
+  <p class="govuk-body"><%= @question.content %></p>
 </div>
 
 <%= form_with url: take_quiz_submit_path(@quiz.id, @question.id), method: :post, local: true do |form| %>
-<%= render "govuk_publishing_components/components/input", {
-      label: { text: "Your Answer" },
-      name: "answer"
-    } %>
-<%= hidden_field_tag "question_id", @question.id %>
-<%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
+  <%= render "govuk_publishing_components/components/radio", {
+        heading: "Choose your answer",
+        name: "answer",
+        items: [
+          { value: "option_a", text: @question.option_a },
+          { value: "option_b", text: @question.option_b },
+          { value: "option_c", text: @question.option_c },
+          { value: "option_d", text: @question.option_d }
+        ]
+      } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Submit Answer" } %>
 <% end %>
