@@ -1,20 +1,30 @@
 <% content_for :page_title, "Edit a Quiz" %>
 <% content_for :back_link, quiz_path(@quiz) %>
 
+<% if @quiz.errors.any? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+    message: "There were errors with your submission. Please fix them below."
+  } %>
+<% end %>
+
 <%= form_with model: @quiz, local: true do |form| %>
   <%= render "govuk_publishing_components/components/input", {
         label: { text: "Title" },
         name: "quiz[title]",
         value: @quiz.title,
-      } %>
+        id: "quiz_title",
+        error_items: @quiz.errors[:title].map { |message| { text: message } }
+        } %>
+
   <%= render "govuk_publishing_components/components/input", {
         label: { text: "Description" },
         name: "quiz[description]",
         value: @quiz.description,
-      } %>
-      
+        id: "quiz_description",
+        error_items: @quiz.errors[:description].map { |message| { text: message } }
+        } %>
+
 <%= render "govuk_publishing_components/components/button", {
         text: "Update Quiz",
     } %>
-
 <% end %>

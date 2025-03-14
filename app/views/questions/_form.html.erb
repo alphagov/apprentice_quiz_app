@@ -1,38 +1,49 @@
+<% if @question.errors.any? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+    message: "There were errors with your submission. Please fix them below."
+  } %>
+<% end %>
+
 <%= form_with(model: [@quiz, @question], local: true) do |f| %>
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Question" },
     name: "question[content]",
     value: @question.content,
-    id: "question_content"
+    id: "question_content",
+    error_items: @question.errors[:content].map { |message| { text: message } }
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option A" },
     name: "question[option_a]",
     value: @question.option_a,
-    id: "question_option_a"
+    id: "question_option_a",
+    error_items: @question.errors[:option_a].map { |message| { text: message } }
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option B" },
     name: "question[option_b]",
     value: @question.option_b,
-    id: "question_option_b"
-  } %>
+    id: "question_option_b",
+    error_items: @question.errors[:option_b].map { |message| { text: message } }
+    } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option C" },
     name: "question[option_c]",
     value: @question.option_c,
-    id: "question_option_c"
-  } %>
+    id: "question_option_c",
+    error_items: @question.errors[:option_c].map { |message| { text: message } }
+    } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option D" },
     name: "question[option_d]",
     value: @question.option_d,
-    id: "question_option_d"
-  } %>
+    id: "question_option_d",
+    error_items: @question.errors[:option_d].map { |message| { text: message } }
+    } %>
 
   <%= render "govuk_publishing_components/components/radio", {
     heading: "Select the correct option",
@@ -42,8 +53,9 @@
       { value: "option_b", text: "Option B" },
       { value: "option_c", text: "Option C" },
       { value: "option_d", text: "Option D" }
-    ]
-  } %>
+    ],
+    error_items: @question.errors[:correct_option].map { |message| { text: message } }
+    } %>
 
   <%= f.submit "Save", class: "govuk-button" %>
 <% end %>
