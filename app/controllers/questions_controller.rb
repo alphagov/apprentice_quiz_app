@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to quiz_path(@quiz)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -20,6 +20,8 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       redirect_to quiz_path(@quiz)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
