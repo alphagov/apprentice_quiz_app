@@ -8,6 +8,9 @@ class Question < ApplicationRecord
     option_d: "option_d",
   }
 
+  validates :content, :option_a, :option_b, :option_c, :option_d, presence: true
+  validates :correct_option, presence: true, inclusion: { in: %w[option_a option_b option_c option_d] }
+
   def correct_answer
     raise "No answer defined" if correct_option.blank?
 

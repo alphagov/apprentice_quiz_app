@@ -1,3 +1,9 @@
+<% if @question.errors.any? %>
+  <%= render "govuk_publishing_components/components/error_alert", {
+    message: "There were errors with your submission. Please fix them below."
+  } %>
+<% end %>
+
 <%= form_with(model: [@quiz, @question], local: true) do |f| %>
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Question" },
@@ -5,6 +11,12 @@
     value: @question.content,
     id: "question_content"
   } %>
+  <% if @question.errors[:content].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Question can't be blank",
+      id: "question_content_error"
+    } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option A" },
@@ -12,6 +24,12 @@
     value: @question.option_a,
     id: "question_option_a"
   } %>
+  <% if @question.errors[:option_a].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Option A can't be blank",
+      id: "question_option_a_error"
+    } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option B" },
@@ -19,6 +37,12 @@
     value: @question.option_b,
     id: "question_option_b"
   } %>
+  <% if @question.errors[:option_b].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Option B can't be blank",
+      id: "question_option_b_error"
+    } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option C" },
@@ -26,6 +50,12 @@
     value: @question.option_c,
     id: "question_option_c"
   } %>
+  <% if @question.errors[:option_c].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Option C can't be blank",
+      id: "question_option_c_error"
+    } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: { text: "Option D" },
@@ -33,6 +63,12 @@
     value: @question.option_d,
     id: "question_option_d"
   } %>
+  <% if @question.errors[:option_d].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Option D can't be blank",
+      id: "question_option_d_error"
+    } %>
+  <% end %>
 
   <%= render "govuk_publishing_components/components/radio", {
     heading: "Select the correct option",
@@ -44,6 +80,12 @@
       { value: "option_d", text: "Option D" }
     ]
   } %>
+  <% if @question.errors[:correct_option].any? %>
+    <%= render "govuk_publishing_components/components/error_message", {
+      text: "Please select the correct option",
+      id: "question_correct_option_error"
+    } %>
+  <% end %>
 
   <%= f.submit "Save", class: "govuk-button" %>
 <% end %>
