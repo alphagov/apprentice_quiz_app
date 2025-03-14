@@ -16,7 +16,7 @@ class QuizzesController < ApplicationController
     if @quiz.save
       redirect_to @quiz, notice: "Quiz was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class QuizzesController < ApplicationController
     if @quiz.update(quiz_params)
       redirect_to @quiz, notice: "Quiz was successfully updated."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
