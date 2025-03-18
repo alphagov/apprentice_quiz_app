@@ -5,6 +5,12 @@
 
 <p class="govuk-body">You scored <%= @score %> out of <%= @quiz.questions.count %>.</p>
 
+<% if (name = current_user&.username || @guest_username).present? %>
+  <p class="govuk-body">
+    <%= current_user.present? ? "User: #{name}" : "Guest: #{name}" %>
+  </p>
+<% end %>
+
 <div class="govuk-button-group">
   <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path(@quiz) } %>
 </div>
