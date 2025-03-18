@@ -31,6 +31,26 @@ RSpec.describe "Questions", type: :request do
     end
   end
 
+  describe "POST create with invalid parameters" do
+    it "does not create a new question and displays error messages" do
+      expect {
+        post quiz_questions_path(quiz), params: { question: {
+          content: "",
+          option_a: "Answer A",
+          option_b: "Answer B",
+          option_c: "Answer C",
+          option_d: "Answer D",
+          correct_option: "",
+        } }
+      }.not_to change(quiz.questions, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include("There were errors with your submission. Please fix them below.")
+      expect(response.body).to include("Field can&#39;t be blank")
+      expect(response.body).to include("Please select one of the options")
+    end
+  end
+
   describe "GET edit" do
     let(:question) do
       quiz.questions.create!(
@@ -78,6 +98,29 @@ RSpec.describe "Questions", type: :request do
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Three")
       expect(response.body).to include("Four")
+    end
+  end
+
+  describe "PATCH update with invalid parameters" do
+    let(:question) do
+      quiz.questions.create!(
+        content: "One",
+        option_a: "Answer A",
+        option_b: "Answer B",
+        option_c: "Answer C",
+        option_d: "Answer D",
+        correct_option: "option_a",
+      )
+    end
+
+    it "does not update the question and re-renders the edit form" do
+      patch quiz_question_path(quiz, question), params: { question: {
+        content: "",
+        option_a: "",
+      } }
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include("There were errors with your submission. Please fix them below.")
+      expect(response.body.scan("Field can&#39;t be blank").size).to eq(2)
     end
   end
 

@@ -48,6 +48,19 @@ RSpec.describe "Quizzes", type: :request do
     end
   end
 
+  describe "POST create with invalid parameters" do
+    it "does not create a new quiz and displays error messages" do
+      expect {
+        post quizzes_path, params: { quiz: { title: "", description: "" } }
+      }.not_to change(Quiz, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include("There were errors with your submission. Please fix them below.")
+      expect(response.body).to include("Please enter a title for your quiz")
+      expect(response.body).to include("Please provide a description for your quiz")
+    end
+  end
+
   describe "PATCH update" do
     let(:quiz) { Quiz.create!(title: "First Quiz", description: "This is the first quiz") }
 
@@ -60,6 +73,19 @@ RSpec.describe "Quizzes", type: :request do
       expect(response).to have_http_status(:success)
       expect(response.body).to include("First Quiz")
       expect(response.body).to include("I have updated the quiz")
+    end
+  end
+
+  describe "PATCH update with invalid parameters" do
+    let(:quiz) { Quiz.create!(title: "Valid Quiz", description: "Valid Description") }
+
+    it "does not update the quiz and displays error messages" do
+      patch quiz_path(quiz.id), params: { quiz: { title: "", description: "" } }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include("There were errors with your submission. Please fix them below.")
+      expect(response.body).to include("Please enter a title for your quiz")
+      expect(response.body).to include("Please provide a description for your quiz")
     end
   end
 

@@ -8,6 +8,9 @@ class Question < ApplicationRecord
     option_d: "option_d",
   }
 
+  validates :content, :option_a, :option_b, :option_c, :option_d, presence: { message: "Field can't be blank" }
+  validates :correct_option, inclusion: { in: %w[option_a option_b option_c option_d], message: "Please select one of the options" }
+
   def correct_answer
     raise "No answer defined" if correct_option.blank?
 

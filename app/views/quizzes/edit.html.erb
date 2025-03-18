@@ -1,20 +1,4 @@
 <% content_for :page_title, "Edit a Quiz" %>
 <% content_for :back_link, quiz_path(@quiz) %>
 
-<%= form_with model: @quiz, local: true do |form| %>
-  <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Title" },
-        name: "quiz[title]",
-        value: @quiz.title,
-      } %>
-  <%= render "govuk_publishing_components/components/input", {
-        label: { text: "Description" },
-        name: "quiz[description]",
-        value: @quiz.description,
-      } %>
-      
-<%= render "govuk_publishing_components/components/button", {
-        text: "Update Quiz",
-    } %>
-
-<% end %>
+<%= render "form", button_text: "Update Quiz" %>
