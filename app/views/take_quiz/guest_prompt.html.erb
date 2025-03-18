@@ -1,0 +1,15 @@
+<% content_for :page_title, "Set Quiz Username" %>
+<% if user_signed_in? && @quiz.user == current_user %>
+  <% content_for :back_link, quiz_path(@quiz) %>
+<% else %>
+  <% content_for :back_link, quizzes_path %>
+<% end %>
+
+<%= form_with url: take_quiz_set_guest_username_path(@quiz.id), local: true do |f| %>
+  <%= render "govuk_publishing_components/components/input", {
+        label: { text: "Quiz Username" },
+        name: "guest_username",
+        required: true
+      } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Continue", type: "submit" } %>
+<% end %>
