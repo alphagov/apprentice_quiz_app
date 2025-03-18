@@ -1,10 +1,11 @@
 class TakeQuizController < ApplicationController
   before_action :set_quiz
+  before_action :ensure_guest_or_signed_in
 
   def question
-    @question = @quiz.questions.find(params[:question_id])
-    question_ids = @quiz.questions.order(:id).ids
-    @question_index = question_ids.index(@question.id)
+    @questions = @quiz.questions.order(:id)
+    @question = @questions.find(params[:question_id])
+    @question_index = @questions.pluck(:id).index(@question.id)
   end
 
   def submit
@@ -14,7 +15,7 @@ class TakeQuizController < ApplicationController
     session[:quiz_answers][@quiz.id.to_s] ||= {}
     session[:quiz_answers][@quiz.id.to_s][current_question.id.to_s] = user_answer
 
-    next_question = @quiz.questions.where("id > ?", current_question.id).first
+    next_question = @quiz.questions.where("id > ?", current_question.id).order(:id).first
 
     if next_question
       redirect_to take_quiz_question_path(@quiz.id, next_question.id)
@@ -27,8 +28,6 @@ class TakeQuizController < ApplicationController
     user_answers = session[:quiz_answers]&.[](@quiz.id.to_s) || {}
     @score = @quiz.questions.sum do |q|
       user_answer = user_answers[q.id.to_s]
-      next 0 unless user_answer
-
       user_answer == q.correct_option ? 1 : 0
     end
   end
@@ -37,5 +36,11 @@ private
 
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])
+  end
+
+  def ensure_guest_or_signed_in
+    unless user_signed_in? || session[:guest_username].present?
+      redirect_to guest_prompt_quiz_path(@quiz), alert: "Please enter your guest username to continue."
+    end
   end
 end

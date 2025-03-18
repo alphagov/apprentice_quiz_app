@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_quiz
   before_action :find_question, only: %i[edit update destroy]
+  before_action :authorize_user!
 
   def new
     @question = @quiz.questions.build
@@ -40,7 +42,14 @@ private
     @question = @quiz.questions.find(params[:id])
   end
 
+  def authorize_user!
+    unless @quiz.user == current_user
+      flash[:alert] = "You are not authorised to modify this quiz."
+      redirect_to quiz_path(@quiz)
+    end
+  end
+
   def question_params
-    params.expect(question: %i[content option_a option_b option_c option_d correct_option])
+    params.require(:question).permit(:content, :option_a, :option_b, :option_c, :option_d, :correct_option)
   end
 end
