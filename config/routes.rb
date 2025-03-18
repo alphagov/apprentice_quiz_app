@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   if Rails.env.development?
     mount GovukPublishingComponents::Engine, at: "/component-guide"
   end
