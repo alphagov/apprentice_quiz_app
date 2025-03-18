@@ -1,10 +1,20 @@
 <% content_for :page_title, "Quiz Results" %>
-<% content_for :back_link, quiz_path(@quiz) %>
+<% if user_signed_in? && @quiz.user == current_user %>
+  <% content_for :back_link, quiz_path(@quiz) %>
+<% else %>
+  <% content_for :back_link, quizzes_path %>
+<% end %>
 
 <p class="govuk-body">Congratulations, you've completed the quiz: <%= @quiz.title %></p>
 
 <p class="govuk-body">You scored <%= @score %> out of <%= @quiz.questions.count %>.</p>
 
+<% if (name = @guest_username).present? %>
+  <p class="govuk-body">
+    <%= "Username: #{name}" %>
+  </p>
+<% end %>
+
 <div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path(@quiz) } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path } %>
 </div>
