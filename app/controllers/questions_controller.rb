@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_quiz
-  before_action :find_question, only: %i[edit update destroy]
 
   def new
     @question = @quiz.questions.build
@@ -15,9 +15,12 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @question = @quiz.questions.find(params[:id])
+  end
 
   def update
+    @question = @quiz.questions.find(params[:id])
     if @question.update(question_params)
       redirect_to quiz_path(@quiz)
     else
@@ -26,6 +29,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    @question = @quiz.questions.find(params[:id])
     @question.destroy!
     redirect_to quiz_path(@quiz)
   end
@@ -33,11 +37,7 @@ class QuestionsController < ApplicationController
 private
 
   def find_quiz
-    @quiz = Quiz.find(params[:quiz_id])
-  end
-
-  def find_question
-    @question = @quiz.questions.find(params[:id])
+    @quiz = Quiz.find_by!(id: params[:quiz_id], user: current_user)
   end
 
   def question_params
