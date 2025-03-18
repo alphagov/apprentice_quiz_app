@@ -1,0 +1,42 @@
+<% content_for :page_title, "Sign In" %>
+<% back_link = request.referer || root_path %>
+<% content_for :back_link, back_link %>
+
+<div class="govuk-width-container">
+  <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Email" },
+          name: "user[email]",
+          value: resource.email,
+          required: true,
+          autofocus: true,
+          type: "email"
+        } %>
+
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Password" },
+          name: "user[password]",
+          required: true,
+          autocomplete: "current-password",
+          type: "password"
+        } %>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="govuk-form-group">
+        <%= render "govuk_publishing_components/components/checkboxes", {
+              name: "user[remember_me]",
+              items: [
+                { label: "Remember me", value: "1" }
+              ]
+            } %>
+      </div>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/button", { text: "Log in", type: "submit" } %>
+  <% end %>
+
+  <div class="govuk-body">
+    Don't have an account?
+    <%= link_to "Sign Up", new_user_registration_path, class: "govuk-link" %>
+  </div>
+</div>

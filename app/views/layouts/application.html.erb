@@ -1,9 +1,25 @@
+<%# app/views/layouts/application.html.erb %>
+<% if user_signed_in? %>
+  <% nav_items = [
+       { text: "Welcome, #{current_user.username}", href: nil },
+       { text: "Sign Out", href: destroy_user_session_path, data: { method: "delete", rel: "nofollow" } }
+     ] %>
+<% else %>
+  <% nav_items = [
+       { text: "Sign In", href: new_user_session_path }
+     ] %>
+<% end %>
+
 <%= render "govuk_publishing_components/components/layout_for_admin", {
   environment: "development",
   product_name: "Quiz",
   browser_title: yield(:page_title)
 } do %>
-  <%= render "govuk_publishing_components/components/layout_header", environment: "development" %>
+  <%= render "govuk_publishing_components/components/layout_header", {
+        environment: "development",
+        navigation_items: nav_items
+      } %>
+  
   <div class="govuk-width-container">
     <% if content_for?(:back_link) %>
       <%= render "govuk_publishing_components/components/back_link", href: yield(:back_link) %>
@@ -11,7 +27,10 @@
     <main class="govuk-main-wrapper" id="main-content">
       <% if content_for?(:page_title) %>
         <h1 class="govuk-heading-xl"><%= yield(:page_title) %></h1>
-      <% end %>
+      <% end %>    
+    <% if flash[:alert].present? %>
+      <%= render "govuk_publishing_components/components/error_alert", { message: flash[:alert] } %>
+    <% end %>
       <%= yield %>
     </main>
   </div>

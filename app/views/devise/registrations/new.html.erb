@@ -1,0 +1,51 @@
+<%# app/views/devise/registrations/new.html.erb %>
+<% content_for :page_title, "Sign Up" %>
+<% content_for :back_link, new_user_session_path %>
+
+<div class="govuk-width-container">
+  <% if resource.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_alert", { 
+          message: "There were errors with your submission. Please fix them below." 
+        } %>
+  <% end %>
+
+  <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Username" },
+          name: "user[username]",
+          value: resource.username,
+          required: true,
+          autofocus: true,
+          error_items: resource.errors[:username].map { |message| { text: message } }
+        } %>
+
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Email" },
+          name: "user[email]",
+          value: resource.email,
+          required: true,
+          type: "email",
+          error_items: resource.errors[:email].map { |message| { text: message } }
+        } %>
+
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Password" },
+          name: "user[password]",
+          required: true,
+          autocomplete: "new-password",
+          type: "password",
+          error_items: resource.errors[:password].map { |message| { text: message } }
+        } %>
+
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Password Confirmation" },
+          name: "user[password_confirmation]",
+          required: true,
+          autocomplete: "new-password",
+          type: "password",
+          error_items: resource.errors[:password_confirmation].map { |message| { text: message } }
+        } %>
+
+    <%= render "govuk_publishing_components/components/button", { text: "Sign Up", type: "submit" } %>
+  <% end %>
+</div>
