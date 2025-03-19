@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   end
 
   resources :quizzes do
+    member do
+      get :guest_prompt
+      post :guest_sign_in
+    end
     resources :questions
   end
 

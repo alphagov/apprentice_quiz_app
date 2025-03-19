@@ -1,13 +1,14 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  before_action :find_quiz, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show guest_prompt guest_sign_in]
+  before_action :find_quiz, only: %i[show edit update destroy guest_prompt guest_sign_in]
   before_action :authorize_user!, only: %i[edit update destroy]
+
   def index
     @quizzes = Quiz.all
   end
 
   def show
-    @quiz = Quiz.find(params[:id])
+    # @quiz is already set in find_quiz
   end
 
   def new
@@ -24,11 +25,10 @@ class QuizzesController < ApplicationController
   end
 
   def edit
-    @quiz = Quiz.find(params[:id])
+    # @quiz is already set in find_quiz
   end
 
   def update
-    @quiz = Quiz.find(params[:id])
     if @quiz.update(quiz_params)
       redirect_to @quiz, notice: "Quiz was successfully updated."
     else
@@ -37,9 +37,19 @@ class QuizzesController < ApplicationController
   end
 
   def destroy
-    @quiz = Quiz.find(params[:id])
     @quiz.destroy!
     redirect_to quizzes_path, notice: "Quiz was successfully deleted."
+  end
+
+  # Guest functionality for users who are not signed in
+
+  def guest_prompt
+    # Renders a view prompting for a guest username
+  end
+
+  def guest_sign_in
+    session[:guest_username] = params[:guest_username]
+    redirect_to quiz_path(@quiz)
   end
 
 private
@@ -55,7 +65,7 @@ private
   def authorize_user!
     unless @quiz.user == current_user
       flash[:alert] = "You are not authorised to perform that action."
-      redirect_to quiz_path
+      redirect_to quiz_path(@quiz)
     end
   end
 
