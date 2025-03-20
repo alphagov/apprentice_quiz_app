@@ -28,5 +28,9 @@ test:
 # Similarly, if you deploy your application as a Docker container, you must
 # ensure the database is located in a persisted volume.
 production:
-  <<: *default
-  # database: path/to/persistent/storage/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("DATABASE_POOL", "12").to_i %>
+  template: template0
+  database: apprentice_quiz_app_production
+  url: <%= ENV["DATABASE_URL"]%>

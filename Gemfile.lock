@@ -404,6 +404,7 @@ GEM
     parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
+    pg (1.5.9)
     plek (5.2.1)
     pp (0.6.2)
       prettyprint
@@ -593,6 +594,7 @@ DEPENDENCIES
   govuk_publishing_components
   importmap-rails
   jbuilder
+  pg
   puma
   rails (= 8.0.2)
   rspec-rails
@@ -604,6 +606,9 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+
+RUBY VERSION
+   ruby 3.4.1p0
 
 BUNDLED WITH
    2.6.5
