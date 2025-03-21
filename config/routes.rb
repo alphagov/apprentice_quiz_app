@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users
   if Rails.env.development?
     mount GovukPublishingComponents::Engine, at: "/component-guide"
   end
 
   resources :quizzes do
+    member do
+      get :guest_prompt
+      post :guest_sign_in
+    end
     resources :questions
   end
 

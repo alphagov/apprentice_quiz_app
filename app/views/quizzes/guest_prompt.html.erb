@@ -1,0 +1,16 @@
+<% content_for :page_title, "Guest Sign In" %>
+<% content_for :back_link, quiz_path(@quiz) %>
+
+<div class="govuk-width-container">
+  <h1 class="govuk-heading-xl">Enter Your Name</h1>
+  
+  <%= form_with url: guest_sign_in_quiz_path(@quiz), local: true do |f| %>
+    <%= render "govuk_publishing_components/components/input", {
+          label: { text: "Guest Username" },
+          name: "guest_username",
+          required: true
+        } %>
+    
+    <%= render "govuk_publishing_components/components/button", { text: "Continue", type: "submit" } %>
+  <% end %>
+</div>
