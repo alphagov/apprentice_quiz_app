@@ -1,7 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "Questions", type: :request do
-  let(:quiz) { Quiz.create!(title: "Sample Quiz", description: "This is a sample quiz") }
+  include Warden::Test::Helpers
+
+  before do
+    Warden.test_mode!
+    login_as(user, scope: :user)
+  end
+
+  after { Warden.test_reset! }
+
+  let(:user) { User.create!(username: "testuser", email: "test@example.com", password: "password") }
+  let(:quiz) { Quiz.create!(title: "Sample Quiz", description: "This is a sample quiz", user: user) }
 
   describe "GET new" do
     it "renders the new question form" do
@@ -143,6 +153,49 @@ RSpec.describe "Questions", type: :request do
       expect(response).to redirect_to(quiz_path(quiz))
       follow_redirect!
       expect(response.body).not_to include("Delete this")
+    end
+  end
+
+  describe "unauthorized access" do
+    let(:other_user) { User.create!(username: "otheruser", email: "other@example.com", password: "password") }
+    let(:other_quiz) { Quiz.create!(title: "Other Quiz", description: "This is another quiz", user: other_user) }
+    let(:question) do
+      other_quiz.questions.create!(
+        content: "Unauthorized question",
+        option_a: "A",
+        option_b: "B",
+        option_c: "C",
+        option_d: "D",
+        correct_option: "option_a",
+      )
+    end
+
+    it "redirects when trying to access the edit page for a question not owned by the current user" do
+      get edit_quiz_question_path(other_quiz, question)
+      expect(response).to redirect_to(quiz_path(other_quiz))
+      follow_redirect!
+      expect(response.body).to include("You are not authorised to modify this quiz.")
+    end
+
+    it "redirects when trying to update a question not owned by the current user" do
+      patch quiz_question_path(other_quiz, question), params: { question: { content: "Updated" } }
+      expect(response).to redirect_to(quiz_path(other_quiz))
+      follow_redirect!
+      expect(response.body).to include("You are not authorised to modify this quiz.")
+    end
+
+    it "redirects when trying to delete a question not owned by the current user" do
+      delete quiz_question_path(other_quiz, question)
+      expect(response).to redirect_to(quiz_path(other_quiz))
+      follow_redirect!
+      expect(response.body).to include("You are not authorised to modify this quiz.")
+    end
+
+    it "redirects when trying to access the new question form for a quiz not owned by the current user" do
+      get new_quiz_question_path(other_quiz)
+      expect(response).to redirect_to(quiz_path(other_quiz))
+      follow_redirect!
+      expect(response.body).to include("You are not authorised to modify this quiz.")
     end
   end
 end
