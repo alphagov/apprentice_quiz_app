@@ -1,0 +1,11 @@
+<% content_for :page_title, "Guest Access" %>
+<% content_for :back_link, quiz_path(@quiz) %>
+
+<%= form_with url: take_quiz_set_guest_username_path(@quiz.id), local: true do |f| %>
+  <%= render "govuk_publishing_components/components/input", {
+        label: { text: "Guest Username" },
+        name: "guest_username",
+        required: true
+      } %>
+  <%= render "govuk_publishing_components/components/button", { text: "Continue", type: "submit" } %>
+<% end %>

@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_quiz
   before_action :find_question, only: %i[edit update destroy]
 
@@ -33,7 +34,10 @@ class QuestionsController < ApplicationController
 private
 
   def find_quiz
-    @quiz = Quiz.find(params[:quiz_id])
+    @quiz = current_user.quizzes.find(params[:quiz_id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "You are not authorised to modify this quiz."
+    redirect_to quiz_path(params[:quiz_id])
   end
 
   def find_question

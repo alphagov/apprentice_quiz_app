@@ -4,6 +4,7 @@ ruby "~> #{File.read(File.join(__dir__, '.ruby-version')).strip}"
 
 gem "bootsnap", require: false
 gem "dartsass-rails", "~> 0.5.1"
+gem "devise"
 gem "govuk_publishing_components"
 gem "importmap-rails"
 gem "jbuilder"
