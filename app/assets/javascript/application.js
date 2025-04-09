@@ -8,9 +8,9 @@
 //= require_tree .
 
 document.addEventListener("DOMContentLoaded", function() {
-    var container = document.getElementById("quiz-index-container");
-    if (container) {
-      container.classList.add("fade-in");
+    var indexContainer = document.getElementById("fade-container");
+    if (indexContainer) {
+      indexContainer.classList.add("fade-in");
     }
   });
   
