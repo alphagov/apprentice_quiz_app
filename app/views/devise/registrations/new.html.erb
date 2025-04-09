@@ -9,6 +9,7 @@
         } %>
   <% end %>
 
+<div id="fade-container">
   <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), local: true do |f| %>
     <%= render "govuk_publishing_components/components/input", {
           label: { text: "Email" },

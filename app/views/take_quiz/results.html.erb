@@ -5,16 +5,18 @@
   <% content_for :back_link, quizzes_path %>
 <% end %>
 
-<p class="govuk-body">Congratulations, you've completed the quiz: <%= @quiz.title %></p>
+<div id="fade-container">
+  <p class="govuk-body">Congratulations, you've completed the quiz: <%= @quiz.title %></p>
 
-<p class="govuk-body">You scored <%= @score %> out of <%= @quiz.questions.count %>.</p>
+  <p class="govuk-body">You scored <%= @score %> out of <%= @quiz.questions.count %>.</p>
 
-<% if (name = @guest_username).present? %>
-  <p class="govuk-body">
-    <%= "Username: #{name}" %>
-  </p>
-<% end %>
+  <% if (name = @guest_username).present? %>
+    <p class="govuk-body">
+      <%= "Username: #{name}" %>
+    </p>
+  <% end %>
 
-<div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path } %>
+  <div class="govuk-button-group">
+    <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path } %>
+  </div>
 </div>
