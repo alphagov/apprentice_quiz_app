@@ -1,5 +1,18 @@
 class TakeQuizController < ApplicationController
   before_action :set_quiz
+  before_action :ensure_guest_or_signed_in, except: %i[guest_prompt set_guest_username]
+
+  def guest_prompt; end
+
+  def set_guest_username
+    if params[:guest_username].blank?
+      flash[:alert] = "Quiz username can't be blank."
+      redirect_to take_quiz_guest_prompt_path(@quiz.id)
+    else
+      session[:guest_username] = params[:guest_username]
+      redirect_to take_quiz_question_path(@quiz.id, @quiz.questions.first.id)
+    end
+  end
 
   def question
     @question = @quiz.questions.find(params[:question_id])
@@ -31,11 +44,19 @@ class TakeQuizController < ApplicationController
 
       user_answer == q.correct_option ? 1 : 0
     end
+
+    @guest_username = session[:guest_username]
   end
 
 private
 
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])
+  end
+
+  def ensure_guest_or_signed_in
+    if session[:guest_username].blank?
+      redirect_to take_quiz_guest_prompt_path(@quiz.id), alert: "Please enter a quiz username to continue."
+    end
   end
 end
