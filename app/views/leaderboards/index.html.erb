@@ -1,0 +1,25 @@
+<% content_for :page_title, "Leaderboard: #{@quiz.title}" %>
+<% content_for :back_link, quizzes_path %>
+
+
+<%= render "govuk_publishing_components/components/table", {
+  head: [
+    { text: "Rank",  format: "numeric" },
+    { text: "Name"                },
+    { text: "Score", format: "numeric" }
+  ],
+  rows: @entries.map.with_index(1) do |entry, rank|
+    [
+      { text: rank.to_s,        format: "numeric" },
+      { text: entry.name                     },
+      { text: entry.score.to_s, format: "numeric" }
+    ]
+  end
+} %>
+
+<div class="govuk-button-group">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Back to Dashboard",
+    href: quizzes_path
+  } %>
+</div>

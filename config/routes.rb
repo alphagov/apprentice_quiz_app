@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :quizzes do
     resources :questions
+    get  "leaderboard/create", to: "leaderboards#create", on: :member, as: :leaderboard_create
+    get  "leaderboard", to: "leaderboards#index", on: :member, as: :leaderboard
   end
 
   scope "/take-quiz/:quiz_id", as: "take_quiz" do

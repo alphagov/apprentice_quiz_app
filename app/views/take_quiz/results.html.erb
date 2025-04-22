@@ -15,6 +15,10 @@
   </p>
 <% end %>
 
-<div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path } %>
-</div>
+ <div class="govuk-button-group">
+   <%= render "govuk_publishing_components/components/button", { text: "Back to Dashboard", href: quizzes_path(@quiz) } %>
+   <%= render "govuk_publishing_components/components/button", {
+     text: "View Leaderboard",
+     href: leaderboard_quiz_path(@quiz)
+   } %>
+ </div>
