@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_18_154309) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_082144) do
+  create_table "leaderboard_entries", force: :cascade do |t|
+    t.string "name"
+    t.integer "quiz_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_leaderboard_entries_on_quiz_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "content"
     t.integer "quiz_id", null: false
@@ -46,6 +55,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_18_154309) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "leaderboard_entries", "quizzes"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "users"
 end
