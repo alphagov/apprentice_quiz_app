@@ -99,9 +99,9 @@ RSpec.describe "Quiz Taking", type: :request do
       end
 
       context "and there is no next question" do
-        it "redirects to the results page" do
+        it "redirects to the leaderboard create endpoint" do
           post take_quiz_submit_path(quiz.id, quiz.questions.second.id), params: { answer: "option_b" }
-          expect(response).to redirect_to(take_quiz_results_path(quiz.id))
+          expect(response).to redirect_to(leaderboard_create_quiz_path(quiz))
         end
       end
     end
@@ -126,12 +126,19 @@ RSpec.describe "Quiz Taking", type: :request do
         before do
           post take_quiz_submit_path(quiz.id, quiz.questions.first.id), params: { answer: "option_a" }
           post take_quiz_submit_path(quiz.id, quiz.questions.second.id), params: { answer: "option_b" }
+          follow_redirect!    # -> leaderboard#create
+          follow_redirect!    # -> take_quiz#results
+        end
+
+        it "creates a leaderboard entry" do
+          expect(LeaderboardEntry.count).to eq(1)
+          expect(LeaderboardEntry.last.name).to eq("GuestUser")
         end
 
         it "displays a score of 2 out of 2" do
-          get take_quiz_results_path(quiz.id)
           expect(response).to have_http_status(:success)
           expect(response.body).to include("You scored 2 out of 2")
+          expect(LeaderboardEntry.last.score).to eq(2)
         end
       end
 

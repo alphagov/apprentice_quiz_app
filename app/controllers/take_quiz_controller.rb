@@ -32,19 +32,13 @@ class TakeQuizController < ApplicationController
     if next_question
       redirect_to take_quiz_question_path(@quiz.id, next_question.id)
     else
-      redirect_to take_quiz_results_path(@quiz.id)
+      redirect_to leaderboard_create_quiz_path(@quiz)
     end
   end
 
   def results
-    user_answers = session[:quiz_answers]&.[](@quiz.id.to_s) || {}
-    @score = @quiz.questions.sum do |q|
-      user_answer = user_answers[q.id.to_s]
-      next 0 unless user_answer
-
-      user_answer == q.correct_option ? 1 : 0
-    end
-
+    user_answers = session.dig(:quiz_answers, @quiz.id.to_s) || {}
+    @score = @quiz.calculate_score(user_answers)
     @guest_username = session[:guest_username]
   end
 
